@@ -6,9 +6,6 @@ namespace Drupal\Tests\install_profile\Functional;
 
 use Drupal\Core\Site\Settings;
 use Drupal\dblog\Controller\DbLogController;
-use Drupal\group\Entity\Group;
-use Drupal\group\Entity\GroupContent;
-use Drupal\group\Entity\GroupContentInterface;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\install_profile\Traits\ConfigInstallTestTrait;
 use Drupal\Tests\install_profile\Traits\ProfileTestTrait;
@@ -69,17 +66,21 @@ final class InstallProfileTest extends BrowserTestBase {
     $admin->addRole('administrator');
     $admin->save();
     $this->drupalLogin($admin);
-    $this->drupalGet('admin/content', ['query' => [
-      'title' => 'Frontpage',
-      'type' => 'article',
-      'status' => 'All',
-    ]]);
+    $this->drupalGet('admin/content', [
+      'query' => [
+        'title' => 'Frontpage',
+        'type' => 'article',
+        'status' => 'All',
+      ],
+    ]);
     $assert->pageTextContains('Frontpage');
-    $this->drupalGet('admin/content', ['query' => [
-      'title' => 'Oops! Not found',
-      'type' => 'article',
-      'status' => 'All',
-    ]]);
+    $this->drupalGet('admin/content', [
+      'query' => [
+        'title' => 'Oops! Not found',
+        'type' => 'article',
+        'status' => 'All',
+      ],
+    ]);
     $assert->pageTextContains('Oops! Not found');
     $this->drupalGet('foo');
     $assert->statusCodeEquals(404);
