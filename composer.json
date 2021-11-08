@@ -27,8 +27,7 @@
         "drupal/redirect": "^1.6",
         "drush/drush": "^10.0.0",
         "furf/jquery-ui-touch-punch": "dev-master",
-        "vlucas/phpdotenv": "^5.0",
-        "wikimedia/composer-merge-plugin": "^2.0"
+        "vlucas/phpdotenv": "^5.0"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^1.0",
@@ -96,11 +95,6 @@
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
-        },
-        "merge-plugin": {
-            "include": [
-                "web/modules/contrib/webform/composer.libraries.json"
-            ]
         }
     },
     "repositories": [
