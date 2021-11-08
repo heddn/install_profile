@@ -64,7 +64,7 @@ jobs:
       - name: Run PHPCBF
         run: composer phpcbf web/modules/custom web/themes/custom
       - name: Run PHPCS
-        run: vendor/bin/phpcs --report=checkstyle web/modules/custom web/themes/custom web/profiles | vendor/bin/cs2pr
+        run: vendor/bin/phpcs --report=checkstyle web/modules/custom web/themes/custom web/profiles
       - name: Prepare test output directory
         run: mkdir -p ${{env.BROWSERTEST_OUTPUT_DIRECTORY}}
       - name: Deprecation checking
