@@ -1,0 +1,100 @@
+name: Test and build
+
+on:
+  push:
+    branches-ignore:
+      # Trigger on push to any branch besides master
+      - master
+
+  workflow_dispatch:
+
+env:
+  COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader"
+  BROWSERTEST_OUTPUT_DIRECTORY: web/sites/simpletest/browser_output
+  THEME_DIRECTORY: web/themes/custom/custom_tw
+  PHP_EXTENSIONS: sodium, json, pdo_sqlite, gd, xml, iconv, intl, ctype, mbstring
+  PHP_VERSION: 7.4
+jobs:
+  test:
+    name: Testing
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Setup cache PHP extensions
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          key: php-ext-cache-v1
+      - name: Cache PHP extensions
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.extcache.outputs.dir }}
+          key: ${{ steps.extcache.outputs.key }}
+          restore-keys: ${{ steps.extcache.outputs.key }}
+      - name: Installing PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+          ini-values: sendmail_path=/bin/true
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{runner.tool_cache}}/php.json"
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{runner.tool_cache}}/phpunit.json"
+      - uses: actions/checkout@v2
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+      - name: Set Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{steps.composer-cache.outputs.dir}}
+          key: composer-${{hashFiles('**/composer.lock', '**/composer.patches.json')}}
+          restore-keys: |
+            composer-
+      - name: Install PHP dependencies
+        run: 'composer install ${{env.COMPOSER_FLAGS}}'
+      - name: PHP linting
+        run: composer lint
+      - name: Run PHPCBF
+        run: composer phpcbf web/modules/custom web/themes/custom
+      - name: Run PHPCS
+        run: vendor/bin/phpcs --report=checkstyle web/modules/custom web/themes/custom web/profiles | vendor/bin/cs2pr
+      - name: Prepare test output directory
+        run: mkdir -p ${{env.BROWSERTEST_OUTPUT_DIRECTORY}}
+      - name: Deprecation checking
+        run: composer phpstan web/modules/custom web/themes/custom web/profiles
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: web/themes/custom/custom_tw/yarn.lock
+      - name: Install NPM dependencies
+        run: yarn --cwd=${{env.THEME_DIRECTORY}} install
+      - name: Compile CSS
+        run: |
+          yarn --cwd=${{env.THEME_DIRECTORY}} build-prod
+          ls -lh ${{env.THEME_DIRECTORY}}/css/app.css
+          rm -r ${{env.THEME_DIRECTORY}}/node_modules
+      - name: Run test suite
+        run: |
+          nohup composer webserver > /dev/null 2>&1 &
+          composer test
+        env:
+          SIMPLETEST_DB: 'sqlite://tmp/test.sqlite'
+          SIMPLETEST_BASE_URL: 'http://127.0.0.1:8888'
+      - name: Build archive of test artifacts
+        if: always()
+        run: tar czf artifacts.tar.gz web/sites/simpletest/
+      - name: Upload archive of test artifacts
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: artifacts.tar.gz
+          path: artifacts.tar.gz

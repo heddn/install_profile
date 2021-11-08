@@ -1,0 +1,14 @@
+[
+  "Creating an instance of this class is deprecated in drupal:9.1.0 and is removed in drupal:10.0.0. Use Database::getConnection()->condition() instead. See https://www.drupal.org/node/3159568",
+  "The \"Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent::getException()\" method is deprecated since Symfony 4.4, use \"getThrowable()\" instead.",
+  "Calling the Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch() method with a string event name as the first argument is deprecated in drupal:9.1.0, an Event object will be required instead in drupal:10.0.0. See https://www.drupal.org/node/3154407",
+  "Non-object services are deprecated since Symfony 4.4, please fix the \"app.root\" service which is of type \"string\" right now.",
+  "The \"app.root\" service is deprecated in drupal:9.0.0 and is removed from drupal:10.0.0. Use the app.root parameter instead. See https://www.drupal.org/node/3080612",
+  "The \"app.root.factory\" service is deprecated in drupal:9.0.0 and is removed from drupal:10.0.0. Use the app.root parameter instead. See https://www.drupal.org/node/3080612",
+  "Drupal\\Core\\Plugin\\ContextAwarePluginBase is deprecated in drupal:9.1.0 and will be removed before drupal:10.0.0. Instead, use \\Drupal\\Core\\Plugin\\ContextAwarePluginTrait. See https://www.drupal.org/node/3120980",
+  "Not marking service definitions as public is deprecated in drupal:9.2.0 and is required in drupal:10.0.0. Call $definition->setPublic(TRUE) before calling ::setDefinition(). See https://www.drupal.org/node/3194517",
+  "Theme \"core\" is overriding a deprecated library. The \"core/jquery.ui\" asset library is deprecated in drupal:9.2.0 and is removed from drupal:10.0.0. See https://www.drupal.org/node/3067969",
+  "Theme \"core\" is overriding a deprecated library. The \"core/jquery.ui.dialog\" asset library is deprecated in drupal:9.2.0 and is removed from drupal:10.0.0. See https://www.drupal.org/node/3067969",
+  "Theme \"core\" is extending a deprecated library. The \"core/jquery.ui\" asset library is deprecated in drupal:9.2.0 and is removed from drupal:10.0.0. See https://www.drupal.org/node/3067969",
+  "The path of a URI with an authority must start with a slash \"/\" or be empty. Automagically fixing the URI by adding a leading slash to the path is deprecated since version 1.4 and will throw an exception instead."
+]

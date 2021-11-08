@@ -1,0 +1,14 @@
+{#
+/**
+ * @file
+ * Theme override to display a node teaser.
+ */
+#}
+<article{{ attributes.addClass('node node-teaser col-span-1') }}>
+    <div class="w-full">
+    {{ title_prefix }}
+        <span{{ title_attributes.addClass("hidden") }}>{{ label }}</span>
+    {{ title_suffix }}
+    </div>
+    {{ content }}
+</article>

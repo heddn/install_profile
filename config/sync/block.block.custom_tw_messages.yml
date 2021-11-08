@@ -1,0 +1,22 @@
+uuid: fd4e9448-8391-4d22-9e1b-5148802b17f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - custom_tw
+_core:
+  default_config_hash: KHQIJ7Vfl25lTjzIc7qIvnuistt-Mw2O0kG4jCofmkI
+id: custom_tw_messages
+theme: custom_tw
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

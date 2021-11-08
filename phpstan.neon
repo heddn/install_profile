@@ -1,0 +1,48 @@
+parameters:
+  customRulesetUsed: true
+  reportUnmatchedIgnoredErrors: false
+  checkGenericClassInNonGenericObjectType: true
+  checkMissingIterableValueType: true
+  checkMissingVarTagTypehint: true
+  checkMissingTypehints: true
+  excludePaths:
+    # Ignore annotated commands.
+    - */src/Commands/*Commands.php
+  ergebnis:
+    allowAbstractClasses: true
+  # Ignore phpstan-drupal extension's rules.
+  ignoreErrors:
+    - '#Plugin definitions cannot be altered.#'
+    - '#Missing cache backend declaration for performance.#'
+    - '#Plugin manager has cache backend specified but does not declare cache tags.#'
+    - '#Plugin manager has cache backend specified but does not declare cache tags.#'
+    - '#Class "[a-zA-Z0-9\\_]+" is not allowed to extend "[a-zA-Z0-9\\_]+".#'
+    - '#Method [a-zA-Z0-9\\_]+::creat[a-zA-Z]+\(\) has a parameter \$container with a type declaration of [a-zA-Z0-9\\_]+, but containers should not be injected.#'
+    - '#Construct empty\(\) is not allowed. Use more strict comparison.#'
+    - '#Language construct empty\(\) should not be used.#'
+    - '#Function [a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with null as default value.#'
+    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with null as default value.#'
+    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has a nullable return type declaration.#'
+    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) is not final, but since the containing class is abstract, it should be.#'
+    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with a nullable type declaration.#'
+    - '#Function [a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with a nullable type declaration.#'
+    - '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.#'
+includes:
+  - vendor/mglaman/phpstan-drupal/extension.neon
+  - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+  - vendor/phpstan/phpstan-strict-rules/rules.neon
+  - vendor/ergebnis/phpstan-rules/rules.neon
+services:
+  -
+    class: PHPStan\Rules\Functions\MissingFunctionReturnTypehintRule
+    arguments:
+      missingTypehintCheck: @PHPStan\Rules\MissingTypehintCheck
+    tags:
+      - phpstan.rules.rule
+  -
+    class: PHPStan\Rules\Methods\ReturnTypeRule
+    tags:
+      - phpstan.rules.rule
+  - class: PHPStan\Rules\Methods\MissingMethodReturnTypehintRule
+    tags:
+      - phpstan.rules.rule

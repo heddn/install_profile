@@ -1,0 +1,12 @@
+{% extends "block.html.twig" %}
+{#
+/**
+ * @file
+ * Theme override for local actions (primary admin actions.)
+ */
+#}
+{% block content %}
+  {% if content %}
+    <div{{ attributes.addClass("px-7") }}><nav  class="flex -mb-px space-x-8" aria-label="Tabs">{{ content }}</nav></div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Theme override for status messages.
+ *
+ * Displays status, error, and warning messages, grouped by type.
+ *
+ * An invisible heading identifies the messages for assistive technology.
+ * Sighted users see a colored box. See http://www.w3.org/TR/WCAG-TECHS/H69.html
+ * for info.
+ *
+ * Add an ARIA label to the contentinfo area so that assistive technology
+ * user agents will better describe this landmark.
+ *
+ * Available variables:
+ * - message_list: List of messages to be displayed, grouped by type.
+ * - status_headings: List of all status types.
+ * - attributes: HTML attributes for the element, including:
+ *   - class: HTML classes.
+ */
+#}
+<div x-data="{ show: true }" x-show="show"  data-drupal-messages class="container p-4 mx-auto">
+{% block messages %}
+{% for type, messages in message_list %}
+  {%
+    set classes = [
+      'messages',
+      'messages--' ~ type,
+      'p-4',
+      'border-solid',
+      'border-l-4',
+      'rounded-md',
+      type == 'status' ? 'text-branding-status-dark bg-branding-status-light border-branding-status',
+      type == 'warning' ? 'text-branding-warning-dark bg-branding-warning-light border-branding-warning',
+      type == 'error' ? 'text-branding-error-dark bg-branding-error-light border-branding-error',
+    ]
+  %}
+  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+    <div class="flex items-start justify-between messages__content ">
+      <div class="bg-messages-{{ type }} bg-no-repeat bg-left w-8 h-8 flex-shrink-0"></div>
+      {% if type == 'error' %}
+        <div role="alert w-full">
+      {% endif %}
+        {% if status_headings[type] %}
+          <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+        {% endif %}
+        {% if messages|length > 1 %}
+          <ul class="flex-grow px-4 text-sm font-medium messages__list">
+            {% for message in messages %}
+              <li class="messages__item">{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <span class="self-center flex-grow px-4 text-sm font-medium messages__item">{{ messages|first }}</span>
+        {% endif %}
+      {% if type == 'error' %}
+        </div>
+      {% endif %}
+      <div class="flex-shrink-0 w-8">
+        <button type="button" @click="show = false">
+            <span class="text-lg" aria-hidden="true">&times;</span>
+            <span class="sr-only">{{ 'Hide messages'|t }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  {# Remove type specific classes. #}
+  {% set attributes = attributes.removeClass(classes) %}
+{% endfor %}
+{% endblock messages %}
+</div>

@@ -1,0 +1,9 @@
+api_version: 1
+web_docroot: true
+drush_version: 10
+php_version: 7.4
+database:
+  version: 10.4
+build_step: true
+search:
+  version: 8

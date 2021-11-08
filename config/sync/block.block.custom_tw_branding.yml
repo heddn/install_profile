@@ -1,0 +1,25 @@
+uuid: eea1dfbd-f0ab-4a20-a943-2345c5540c36
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - custom_tw
+_core:
+  default_config_hash: NDwadleLD3YVSbDUaakxyYZyINYtkFtOVGShfq4kWy8
+id: custom_tw_branding
+theme: custom_tw
+region: header
+weight: -7
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

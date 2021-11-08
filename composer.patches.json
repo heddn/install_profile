@@ -1,0 +1,14 @@
+{
+  "patches": {
+    "drupal/core": {
+      "Allow projects to add to the list of skipped deprecations": "https://www.drupal.org/files/issues/2020-11-02/3143388-12.patch"
+    },
+    "drupal/default_content": {
+      "Reproducible order of import": "https://www.drupal.org/files/issues/2020-10-08/3175870.patch",
+      "[3200212] Import doesn't overwrite files": "https://git.drupalcode.org/project/default_content/-/merge_requests/8.patch"
+    },
+    "drupal/redirect": {
+      "isMasterRequest => isMainRequest": "https://www.drupal.org/files/issues/2021-05-27/3216062.patch"
+    }
+  }
+}

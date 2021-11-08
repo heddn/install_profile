@@ -1,0 +1,27 @@
+name: Custom Tailwind theme
+description: Custom Tailwind theme (based upon Tailwind CSS)
+core_version_requirement: ^9
+type: theme
+base theme: stable
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  highlighted: Highlighted
+  featured_top: 'Featured top'
+  breadcrumb: Breadcrumb
+  content: Content
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  featured_bottom: 'Featured bottom'
+  footer: 'Footer'
+  sticky_footer: 'Sticky footer'
+libraries:
+  - custom_tw/global-styling
+libraries-extend:
+  core/drupal.message:
+    - custom_tw/messages
+ckeditor_stylesheets:
+  - build/app.css

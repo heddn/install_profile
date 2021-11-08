@@ -1,0 +1,81 @@
+{#
+/**
+ * @file
+ * Theme override for displaying a view as a table.
+ */
+#}
+
+<table class="min-w-full divide-y divide-gray-200 border-t-2 border-b-2">
+  {% if caption_needed %}
+    <caption>
+    {% if caption %}
+      {{ caption }}
+    {% else %}
+      {{ title }}
+    {% endif %}
+    {% if (summary_element is not empty) %}
+      {{ summary_element }}
+    {% endif %}
+    </caption>
+  {% endif %}
+
+  {% set header_classes = 'text-left px-6 py-3 text-sm font-medium text-gray-500 uppercase tracking-wider' %}
+  {% if header %}
+    <thead class="bg-gray-100">
+      <tr>
+        {% for key, column in header %}
+          {% set column_classes = header_classes %}
+          {# We need to preserve column alignment configured in Views UI. #}
+          {% if 'views-align-' in column.attributes.class|join(' ') %}
+            {% set column_classes = column_classes|replace({'text-left': ''}) %}
+          {% endif %}
+          <th{{ column.attributes.addClass(column_classes).setAttribute('scope', 'col') }}>
+            {%- if column.wrapper_element -%}
+              <{{ column.wrapper_element }}>
+                {%- if column.url -%}
+                  <a href="{{ column.url }}" title="{{ column.title }}" rel="nofollow">{{ column.content }}{{ column.sort_indicator }}</a>
+                {%- else -%}
+                  {{ column.content }}{{ column.sort_indicator }}
+                {%- endif -%}
+              </{{ column.wrapper_element }}>
+            {%- else -%}
+              {%- if column.url -%}
+                <a href="{{ column.url }}" title="{{ column.title }}" rel="nofollow">{{ column.content }}{{ column.sort_indicator }}</a>
+              {%- else -%}
+                {{- column.content }}{{ column.sort_indicator }}
+              {%- endif -%}
+            {%- endif -%}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+  {% endif %}
+
+  {% set default_column_classes = 'text-left px-6 py-3 text-sm font-medium text-gray-500 tracking-wider' %}
+  <tbody class="bg-branding-athens divide-y divide-gray-200">
+    {% for row in rows %}
+      <tr{{ row.attributes }}>
+        {% for key, column in row.columns %}
+          {% if column.default_classes %}
+            {% set column_classes = default_column_classes|split(' ') %}
+            {% for field in column.fields %}
+              {% set field = field|replace({'is-active': 'was-active'}) %}
+              {% set column_classes = column_classes|merge(['field-' ~ field]) %}
+            {% endfor %}
+          {% elseif 'views-empty' in column.attributes.class %}
+            {% set column_classes = ['p-2', 'text-gray-600'] %}
+          {% endif %}
+          {% set column_classes = column_classes|join(' ') %}
+          {% if 'views-align' in column_classes %}
+            {% set column_classes = column_classes|replace({'text-left': ''}) %}
+          {% endif %}
+          <td{{ column.attributes.addClass(column_classes) }}>
+            {{ column.content }}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+

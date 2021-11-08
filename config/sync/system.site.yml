@@ -1,0 +1,14 @@
+uuid: 39ccdb77-2d58-433c-96d8-2b7cca0b9d15
+name: 'Drush Site-Install'
+mail: admin@example.com
+slogan: ''
+page:
+  403: ''
+  404: /node/1
+  front: /node/2
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+_core:
+  default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE

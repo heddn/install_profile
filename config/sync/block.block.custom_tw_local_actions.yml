@@ -1,0 +1,20 @@
+uuid: 1fc59979-b985-41ee-9596-0bca12570523
+langcode: en
+status: true
+dependencies:
+  theme:
+    - custom_tw
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: custom_tw_local_actions
+theme: custom_tw
+region: content
+weight: -20
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

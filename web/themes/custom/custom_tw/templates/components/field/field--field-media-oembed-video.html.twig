@@ -1,0 +1,13 @@
+{# Setting md:aspect-none results in a broke video display, setting container for now. #}
+{%
+  set classes = [
+    field_name|clean_class,
+    'aspect-w-16',
+    'aspect-h-9',
+  ]
+%}
+{% for item in items %}
+  <div class="md:mx-auto md:max-w-screen-lg">
+    <div{{ item.attributes.addClass(classes) }}>{{ item.content }}</div>
+  </div>
+{% endfor %}

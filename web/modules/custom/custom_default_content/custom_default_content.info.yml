@@ -1,0 +1,15 @@
+name: Custom Default Content
+type: module
+description: 'Provides default content'
+package: Custom
+core_version_requirement: ^9
+dependencies:
+  - drupal:node
+default_content:
+  file:
+    - e30fd084-5cbf-4673-986e-eca504bb0def
+  node:
+    - 94c5a2fe-6ce8-47a3-ac5f-2dc29ac0a71b
+    - 671b53f5-8fbe-447f-9f1e-f198d54a8321
+  taxonomy_term:
+    - 0587b0b1-493e-43ea-a589-9cbaae869296

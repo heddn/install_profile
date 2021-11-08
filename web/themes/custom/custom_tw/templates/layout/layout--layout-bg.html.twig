@@ -1,0 +1,58 @@
+{#
+/**
+ * @file
+ * Theme implementation of bg layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ * - base_layout_template: Template used for non-background content.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if content %}
+  {% if content.background.layout_builder_add_block %}
+    {# Edit Form #}
+    <div class="layout-bg-edit">
+      <div>
+        <h3>{% trans %}Background{% endtrans %}</h3>
+        <p>{% trans %}You may add as many background blocks as you like. Please choose blocks that render an image or video tag. The first block that is not empty will be used. If that block does not render an image or video tag, this Layout will probably not work well.{% endtrans %}</p>
+      </div>
+      <div class="layout-bg-preview" style="background-color: white;">
+        <div style="{{ region_attributes.background.style }}">
+          {% if region_attributes.overlay_attributes %}
+            <div{{ region_attributes.overlay_attributes.addClass('layout-bg-overlay') }}></div>
+          {% endif %}
+          <h3{{ region_attributes.content_attributes.addClass('layout-bg-preview-text') }}>{% trans %}Color preview if image does not load.{% endtrans %}</h3>
+        </div>
+      </div>
+      <div{{ attributes.addClass(base_layout_template|clean_class) }}>
+        <div{{ region_attributes.background.addClass('layout__region') }}>
+          {{ content.background }}
+        </div>
+      </div>
+      <div>
+        <h3>{% trans %}Content{% endtrans %}</h3>
+      </div>
+      {% include(base_layout_template) %}
+    </div>
+  {% else %}
+    {# Rendering #}
+    <div{{ section_attributes.addClass('layout-bg-section'|split(' ')) }}>
+      <div class="layout-bg-row">
+        <div class="layout-bg-bg-container">
+          <div{{ region_attributes.background.addClass('layout-bg-bg-wrapper') }}>
+            {{ content.processed_background }}
+          </div>
+          {% if region_attributes.overlay_attributes %}
+            <div{{ region_attributes.overlay_attributes.addClass('layout-bg-overlay') }}></div>
+          {% endif %}
+        </div>
+        <div {{ region_attributes.content_attributes.addClass('layout-bg-content-container') }}>
+          {% include(base_layout_template) %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

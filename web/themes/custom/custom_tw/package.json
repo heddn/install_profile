@@ -1,0 +1,33 @@
+{
+  "name": "custom_tw",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "private": true,
+  "scripts": {
+    "build": "./scripts/build-tailwind-drupal.sh",
+    "build-prod": "cross-env NODE_ENV=production yarn build",
+    "build-dev": "cross-env NODE_ENV=development yarn build",
+    "watch-tailwind": "yarn build-dev -w",
+    "browser-sync": "browser-sync start --config bs-config.js",
+    "start": "run-p watch-tailwind browser-sync"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/line-clamp": "^0.2.0",
+    "@tailwindcss/typography": "^0.4.0",
+    "autoprefixer": "^10.2.4",
+    "browser-sync": "^2.26.14",
+    "cross-env": "^7.0.3",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.4",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.1",
+    "tailwindcss": "^2.0.2"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": "~14",
+    "npm": "~6"
+  }
+}

@@ -1,0 +1,54 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 94c5a2fe-6ce8-47a3-ac5f-2dc29ac0a71b
+  bundle: article
+  default_langcode: en
+  depends:
+    e30fd084-5cbf-4673-986e-eca504bb0def: file
+    0587b0b1-493e-43ea-a589-9cbaae869296: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Frontpage
+  created:
+    -
+      value: 1636150985
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: /frontpage
+      langcode: en
+      pathauto: 1
+  body:
+    -
+      value: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et quae per vim oblatum stuprum volontaria morte lueret inventa est et qui interficeret filiam, ne stupraretur. Duo Reges: constructio interrete.</p>\r\n"
+      format: basic_html
+      summary: ''
+  field_image:
+    -
+      entity: e30fd084-5cbf-4673-986e-eca504bb0def
+      alt: Kitten
+      title: ''
+      width: 408
+      height: 287
+  field_tags:
+    -
+      entity: 0587b0b1-493e-43ea-a589-9cbaae869296

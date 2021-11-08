@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme override for a webform signature element.
+ */
+#}
+{#
+  Webform signature element relies on vertical padding CSS hack to make
+  canvas height proportinal. That does not work with flex items as
+  the element width is not set. So that full width wrapper is needed.
+#}
+{% set children %}
+  <div class="w-full">
+    {{ children }}
+  </div>
+{% endset %}
+{% include 'form-element.html.twig' %}

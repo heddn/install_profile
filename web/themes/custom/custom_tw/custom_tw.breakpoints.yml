@@ -1,0 +1,20 @@
+custom_tw.image.small:
+  label: mobile
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+custom_tw.image.medium:
+  label: normal
+  mediaQuery: 'all and (min-width: 1024px) and (max-width: 1279px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 2x
+custom_tw.image.large:
+  label: wide
+  mediaQuery: 'all and (min-width: 1280px)'
+  weight: 2
+  multipliers:
+    - 1x

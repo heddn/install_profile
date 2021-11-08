@@ -1,0 +1,22 @@
+uuid: 13259abd-15d2-4bbf-9e87-33fe063fa17e
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - custom_tw
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: custom_tw_help
+theme: custom_tw
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

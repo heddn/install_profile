@@ -1,0 +1,18 @@
+version: '3.6'
+
+services:
+  web:
+    environment:
+      # Available DDEV variables using the ${} syntax.
+      # @see https://github.com/drud/ddev/blob/a9aa54fbc7f8683df59094fe7738e033fc35e99c/pkg/ddevapp/ddevapp.go#L1332-L1361
+      - DRUSH_OPTIONS_URI=https://${DDEV_SITENAME}.ddev.site
+
+      # Even though ddev (1.15.3+) now adds this by default (https://github.com/drud/ddev/pull/2427), it doesn't
+      # seem to always work correctly (perhaps just an Apple Silicon issue).
+      # @todo Remove this when it can be determined more reliable out of the box.
+      - PHP_IDE_CONFIG=serverName=${DDEV_SITENAME}.ddev.site
+
+      - SIMPLETEST_DB=sqlite://tmp/test.sqlite
+      - SIMPLETEST_DB=mysql://db:db@db:3306/db
+      - SIMPLETEST_BASE_URL=http://127.0.0.1:8888
+      - BROWSERTEST_OUTPUT_DIRECTORY=/tmp

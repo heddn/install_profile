@@ -1,0 +1,40 @@
+custom_tw_layout_fivecol:
+  label: 'Five Column'
+  category: 'Columns: 5'
+  path: templates/layout/fivecol_section
+  template: layout--fivecol-section
+  default_region: first
+  icon_map:
+    - [first, second, third, fourth, fifth]
+  regions:
+    first:
+      label: First
+    second:
+      label: Second
+    third:
+      label: Third
+    fourth:
+      label: Fourth
+    fifth:
+      label: Fifth
+
+custom_tw_layout_sixcol:
+  label: 'Six column'
+  category: 'Columns: 6'
+  path: templates/layout/sixcol_section
+  template: layout--sixcol-section
+  icon_map:
+    - [first, second, third, fourth, fifth, sixth]
+  regions:
+    first:
+      label: First
+    second:
+      label: Second
+    third:
+      label: Third
+    fourth:
+      label: Fourth
+    fifth:
+      label: Fifth
+    sixth:
+      label: Sixth

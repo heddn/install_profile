@@ -1,0 +1,264 @@
+@import "./tailwind.css";
+
+/* --- TAILWIND-UTILITIES-DRUPAL-SPLIT */
+@import "./tailwind-utilities.css";
+/* --- TAILWIND-UTILITIES-DRUPAL-SPLIT */
+
+html, body {
+  @apply antialiased;
+  @apply text-branding-outer-space;
+  font-size: 15px;
+  line-height: 1.5em;
+  /* Fallback font for pages without group context. */
+  font-family: Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 1.58rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4, h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.833rem;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1.5em;
+}
+
+/* -------- GROUP MENU -------- */
+.site-menu {
+  font-size: 0.9rem;
+}
+
+@screen md {
+  html, body{
+    font-size: 16px;
+  }
+
+  .select2-container .select2-selection {
+    @apply text-sm;
+  }
+}
+
+@screen lg {
+  html, body{
+    font-size: 18px;
+  }
+}
+
+@screen xl {
+  html, body{
+    font-size: 20px;
+  }
+}
+
+@screen 2xl { }
+
+
+/* -------- ADMIN PAGE STYLES -------- */
+
+/*  TOOLBAR  */
+.ui-autocomplete {
+  z-index: 2000;
+}
+
+/*  EDIT PAGE   */
+.form-required:after {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline: 0.3em;
+  content: "";
+  vertical-align: text-top;
+  /* Use a background image to prevent screen readers from announcing the text. */
+  background-image: url("data:image/svg+xml,%3Csvg height='16' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m0 7.562 1.114-3.438c2.565.906 4.43 1.688 5.59 2.35-.306-2.921-.467-4.93-.484-6.027h3.511c-.05 1.597-.234 3.6-.558 6.003 1.664-.838 3.566-1.613 5.714-2.325l1.113 3.437c-2.05.678-4.06 1.131-6.028 1.356.984.856 2.372 2.381 4.166 4.575l-2.906 2.059c-.935-1.274-2.041-3.009-3.316-5.206-1.194 2.275-2.244 4.013-3.147 5.206l-2.856-2.059c1.872-2.307 3.211-3.832 4.017-4.575-2.081-.402-4.058-.856-5.93-1.356' fill='%23E53E3E'/%3E%3C/svg%3E%0A");
+  background-repeat: no-repeat;
+  background-size: 0.5rem 0.5rem;
+}
+
+.select2-container .select2-selection {
+  height: 2.5em;
+  padding: 0.25em;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 2em;
+  @apply text-gray-800;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 2.5em;
+  width: 2.5em;
+}
+
+.select2-container .select2-search--inline .select2-search__field {
+  margin-top: 2px;
+  @apply text-sm;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  margin-top: 0px;
+  @apply font-bold;
+  @apply text-sm;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+  padding-right: 2em;
+}
+
+.select2-results__option {
+  @apply text-sm;
+  @apply text-gray-600;
+}
+
+.space-x-4 > .description {
+  margin-left: 0 !important;
+}
+
+.filter-wrapper {
+  @apply border-0;
+}
+
+details.bg-gray-100 {
+  @apply p-4;
+}
+
+details.bg-gray-100 details {
+  @apply p-0;
+  @apply mt-6;
+  @apply pt-6;
+  @apply border-gray-400;
+  @apply border-solid;
+  @apply border-t;
+  @apply rounded-none;
+}
+
+/* -------- BUTTONS -------- */
+.button {
+  @apply transition-colors;
+}
+
+a.button {
+  @apply px-6;
+  @apply py-2;
+  @apply border-solid;
+  @apply border-gray-300;
+  @apply shadow-sm;
+  @apply font-bold;
+  @apply rounded-md;
+  @apply text-gray-700;
+  @apply text-sm;
+  @apply border;
+}
+
+a.button.button--danger {
+  @apply bg-branding-error-light;
+  @apply text-branding-athens;
+  @apply border-branding-error-dark;
+}
+
+a.button:hover {
+  @apply bg-gray-50;
+}
+
+a.button.button--danger:hover {
+  @apply bg-branding-error-dark;
+}
+
+a.button:focus {
+  @apply outline-none;
+}
+
+/* -------- ALERTS -------- */
+.bg-messages-status {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%234ade80'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' /%3E%3C/svg%3E");
+}
+.bg-messages-error {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%23f87185'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' /%3E%3C/svg%3E");
+}
+.bg-messages-warning {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='%23facc15'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01' /%3E%3C/svg%3E");
+}
+.messages a {
+  text-decoration: underline;
+}
+
+/* User content (formatted text fields). */
+.cke_editable {
+  @apply p-1;
+  @apply space-y-2;
+}
+
+.cke_editable h1,
+.cke_editable h2,
+.cke_editable h3,
+.user-content h1,
+.user-content h2,
+.user-content h3 {
+  @apply font-semibold;
+}
+.cke_editable ul,
+.user-content ul {
+  @apply list-disc;
+  @apply list-inside;
+}
+
+.cke_editable ol,
+.user-content ol {
+  @apply list-decimal;
+  @apply list-inside;
+}
+
+.cke_editable a,
+.user-content a {
+  @apply underline;
+}
+
+.cke_editable .align-left,
+.user-content .align-left {
+  @apply mb-3;
+  @apply mr-3;
+}
+
+.cke_editable .align-right,
+.user-content .align-right {
+  @apply mb-3;
+  @apply ml-3;
+}
+
+/* Nested lists */
+.cke_editable ul > li,
+.user-content ul > li,
+.cke_editable ol > li,
+.user-content ol > li {
+  @apply ml-2;
+}
+
+/* -------- LAYOUT BUILDER -------- */
+
+/* hide 'Add block' button after entity browser block */
+.layout-builder-block.entity-browser-block{margin-bottom: -130px !important;}
+
+[x-cloak] {
+  display: none !important;
+}

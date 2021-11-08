@@ -1,0 +1,11 @@
+global-styling:
+  css:
+    theme:
+      build/app--pre-utilities.css: {}
+      build/app--tailwind-utilities.css: {}
+      build/app--post-utilities.css: {}
+  js:
+    js/alpine.min.js: {}
+messages:
+  js:
+    js/messages.js: {}

@@ -1,0 +1,124 @@
+{
+    "name": "drupal/recommended-project",
+    "description": "Project template for Drupal 9 projects with a relocated document root",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/drupal",
+    "support": {
+        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
+        "chat": "https://www.drupal.org/node/314178"
+    },
+    "require": {
+        "php": ">=7.4.0",
+        "composer/installers": "^1.9",
+        "cweagans/composer-patches": "^1.6.5",
+        "drupal/admin_toolbar": "^3",
+        "drupal/better_exposed_filters": "^5@beta",
+        "drupal/config_ignore": "^2.3",
+        "drupal/config_split": "2.0.x-dev#5d15fd3f",
+        "drupal/core": "^9.2@alpha",
+        "drupal/core-composer-scaffold": "^9.2@rc",
+        "drupal/core-recommended": "^9.2@rc",
+        "drupal/ctools": "^3.4",
+        "drupal/default_content": "^2@alpha",
+        "drupal/gin": "^3.0@alpha",
+        "drupal/gin_toolbar": "^1@beta",
+        "drupal/pathauto": "^1.8",
+        "drupal/redirect": "^1.6",
+        "drush/drush": "^10.0.0",
+        "furf/jquery-ui-touch-punch": "dev-master",
+        "vlucas/phpdotenv": "^5.0",
+        "wikimedia/composer-merge-plugin": "^2.0"
+    },
+    "require-dev": {
+        "chi-teck/drupal-coder-extension": "^1.0",
+        "drupal/config_inspector": "^1.1",
+        "drupal/core-dev": "^9.2@rc",
+        "drupal/devel": "^4.0",
+        "drupal/stage_file_proxy": "^1.1",
+        "ergebnis/phpstan-rules": "^0.15.3",
+        "mglaman/drupal-check": "^1.1",
+        "phpspec/prophecy-phpunit": "^2",
+        "phpstan/phpstan-strict-rules": "^0.12.9",
+        "phpunit/phpunit": "^9",
+        "roave/security-advisories": "dev-master",
+        "symfony/phpunit-bridge": "^5.3"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "platform": {
+            "php": "7.4.1"
+        },
+        "preferred-install": "dist",
+        "process-timeout": 36000,
+        "sort-packages": true
+    },
+    "autoload": {
+        "files": ["load.environment.php"]
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse --",
+        "si": "drush sql-drop -y && drush site:install -v install_profile --existing-config --yes --sites-subdir=default --account-name=admin-user-default",
+        "phpcs": "phpcs --",
+        "phpcbf": "phpcbf --",
+        "lint": "find web/modules/custom web/themes/custom -name '*.php' -exec php -l {} \\;",
+        "webserver": "cd web && php -S 0.0.0.0:8888 .ht.router.php",
+        "test": "phpunit --list-tests web/modules/custom && DRUPAL_DEPRECATION_SKIP_FILE=$(pwd)/.skipped_deprecations.json phpunit --verbose web/modules/custom && phpunit --list-tests web/profiles && DRUPAL_DEPRECATION_SKIP_FILE=$(pwd)/.skipped_deprecations.json phpunit --verbose web/profiles"
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "patchLevel": {
+            "drupal/core": "-p2"
+        },
+        "patches-file": "composer.patches.json",
+        "enable-patching": true,
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/.htaccess": false,
+                "[web-root]/update.php": false,
+                "[web-root]/INSTALL.txt": false,
+                "[web-root]/web.config": false,
+                "[web-root]/sites/default/services.yml": "web/core/assets/scaffold/files/default.services.yml",
+                "[web-root]/sites/development.services.yml": false
+            }
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "merge-plugin": {
+            "include": [
+                "web/modules/contrib/webform/composer.libraries.json"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "furf/jquery-ui-touch-punch",
+                "version": "dev-master",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/furf/jquery-ui-touch-punch/archive/master.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ]
+}

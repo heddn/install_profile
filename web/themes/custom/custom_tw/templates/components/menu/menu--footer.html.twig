@@ -1,0 +1,48 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}
+{% if items %}
+  {%
+    set menu_classes = [
+      'menu',
+      'flex',
+      'flex-wrap',
+      'px-12',
+      'pb-16',
+      'pt-8',
+      'items-top',
+      'justify-left',
+    ]
+  %}
+  <ul{{ attributes.addClass(menu_classes) }}>
+    {% for item in items %}
+      <li class="pt-8 px-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6">
+        <span class="uppercase text-branding-outer-space text-lg">{{ link(item.title, item.url) }}</span>
+        {% if item.below %}
+          <ul class="font-normal text-sm text-gray-700">
+            {% for menuitem in item.below %}
+              <li class="whitespace-no-wrap">{{ link(menuitem.title, menuitem.url) }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

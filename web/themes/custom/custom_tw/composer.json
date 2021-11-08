@@ -1,0 +1,10 @@
+{
+    "name": "custom/custom_tw",
+    "description": "Custom theme on Tailwind Starter Kit theme",
+    "type": "drupal-theme",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "require": {
+        "drupal/core": "^9.0"
+    }
+}
