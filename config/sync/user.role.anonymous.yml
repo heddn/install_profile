@@ -1,7 +1,15 @@
 uuid: 3ab23306-dbf1-4871-8dcd-16cf032384c3
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.restricted_html
+  module:
+    - contact
+    - filter
+    - media
+    - search
+    - system
 _core:
   default_config_hash: pq_mEIu_B4widZN7Ap81iCJSjShFFdcL0jEiCi8VrDk
 id: anonymous
@@ -9,7 +17,6 @@ label: 'Anonymous user'
 weight: 0
 is_admin: false
 permissions:
-  - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
   - 'search content'
