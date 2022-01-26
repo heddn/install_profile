@@ -10,6 +10,9 @@
     },
     "drupal/redirect": {
       "isMasterRequest => isMainRequest": "https://www.drupal.org/files/issues/2021-06-29/3216062-7.patch"
+    },
+    "drupal/pathauto": {
+      "Convert ContextAwarePluginBase to traits : Deprecated code warnings: Drupal\\Core\\Plugin\\ContextAwarePluginBase is deprecated in drupal:9.1.0": "https://www.drupal.org/files/issues/2022-01-26/3205627.patch"
     }
   }
 }
