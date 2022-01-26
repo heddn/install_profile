@@ -10,12 +10,11 @@
     },
     "require": {
         "php": ">=7.4.0",
-        "composer/installers": "^1.9",
+        "composer/installers": "^2",
         "cweagans/composer-patches": "^1.6.5",
         "drupal/admin_toolbar": "^3",
         "drupal/better_exposed_filters": "^5@beta",
         "drupal/config_ignore": "^2.3",
-        "drupal/config_split": "2.0.x-dev#5d15fd3f",
         "drupal/core": "^9.2@alpha",
         "drupal/core-composer-scaffold": "^9.2@rc",
         "drupal/core-recommended": "^9.2@rc",
@@ -25,20 +24,20 @@
         "drupal/gin_toolbar": "^1@beta",
         "drupal/pathauto": "^1.8",
         "drupal/redirect": "^1.6",
-        "drush/drush": "^10.0.0",
+        "drush/drush": "^11",
         "furf/jquery-ui-touch-punch": "dev-master",
         "vlucas/phpdotenv": "^5.0"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^1.0",
-        "drupal/config_inspector": "^1.1",
+        "drupal/config_inspector": "^2",
         "drupal/core-dev": "^9.2@rc",
         "drupal/devel": "^4.0",
         "drupal/stage_file_proxy": "^1.1",
-        "ergebnis/phpstan-rules": "^0.15.3",
+        "ergebnis/phpstan-rules": "^1",
         "mglaman/drupal-check": "^1.1",
         "phpspec/prophecy-phpunit": "^2",
-        "phpstan/phpstan-strict-rules": "^0.12.9",
+        "phpstan/phpstan-strict-rules": "^1",
         "phpunit/phpunit": "^9",
         "roave/security-advisories": "dev-master",
         "symfony/phpunit-bridge": "^5.3"
@@ -54,7 +53,13 @@
         },
         "preferred-install": "dist",
         "process-timeout": 36000,
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true
+        }
     },
     "autoload": {
         "files": ["load.environment.php"]

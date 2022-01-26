@@ -8,7 +8,6 @@ declare(strict_types=1);
  */
 
 use Drupal\Core\Template\Attribute;
-use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_preprocess().
@@ -64,24 +63,4 @@ function custom_tw_preprocess_media__image__tile(array &$variables): void {
   $variables['content']['field_media_image'][0]['#item_attributes']['class'][] = 'w-full';
   $variables['content']['field_media_image'][0]['#item_attributes']['class'][] = 'h-full';
   $variables['content']['field_media_image'][0]['#item_attributes']['class'][] = 'object-cover';
-}
-
-function custom_tw_preprocess_views_infinite_scroll_pager(&$vars): void {
-  /** @var \Drupal\Core\Pager\PagerManagerInterface $pager_manager */
-  $pager_manager = \Drupal::service('pager.manager');
-  $element = $vars['element'];
-  $pager = $pager_manager->getPager($element);
-  $view = $vars['view'];
-  assert($view instanceof ViewExecutable);
-
-  if (!empty($vars['items']['next']['href'])) {
-    if ($vars['view']->ajaxEnabled()) {
-      $options = [
-        'query' => [
-          'page' => $pager->getCurrentPage() + 1,
-        ],
-      ];
-      $vars['items']['next']['href']->mergeOptions($options);
-    }
-  }
 }

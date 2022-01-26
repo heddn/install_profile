@@ -22,7 +22,7 @@ trait ProfileTestTrait {
    * @see: https://www.drupal.org/project/drupal/issues/2900208
    */
   protected function doInstall(): void {
-    $path_to_db = \getenv('BROWSERTEST_DB_DUMP_PATH') ?: FALSE;
+    $path_to_db = \array_key_exists('BROWSERTEST_DB_DUMP_PATH', $_ENV) ? $_ENV['BROWSERTEST_DB_DUMP_PATH'] : FALSE;
 
     if ($path_to_db && \strpos($path_to_db, 'COMMIT-HASH') !== FALSE) {
       // @phpstan-ignore-next-line
