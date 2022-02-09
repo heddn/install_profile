@@ -28,6 +28,6 @@
   "dependencies": {},
   "engines": {
     "node": "~16",
-    "npm": "~6"
+    "npm": "~8"
   }
 }

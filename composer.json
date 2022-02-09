@@ -14,6 +14,7 @@
         "cweagans/composer-patches": "^1.6.5",
         "drupal/admin_toolbar": "^3",
         "drupal/better_exposed_filters": "^5@beta",
+        "drupal/component_library": "1.0.x-dev",
         "drupal/config_ignore": "^2.3",
         "drupal/core": "^9.2@alpha",
         "drupal/core-composer-scaffold": "^9.2@rc",
