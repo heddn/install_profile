@@ -2,7 +2,11 @@ const {screens,fontSize,listStyleType,boxShadow,maxHeight,minHeight,transitionPr
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: false,
+  content: [
+    '../../../../config/**/component_library.variant.*.yml',
+    'js/messages.js',
+    'templates/**/*.twig'
+  ],
   theme: {
     screens: {
       // Default breakpoints.
