@@ -13,9 +13,6 @@
     },
     "drupal/pathauto": {
       "Convert ContextAwarePluginBase to traits : Deprecated code warnings: Drupal\\Core\\Plugin\\ContextAwarePluginBase is deprecated in drupal:9.1.0": "https://www.drupal.org/files/issues/2022-01-26/3205627.patch"
-    },
-    "drupal/gin_lb": {
-      "GinLbExtension Calling TwigExtension::__construct() without the $file_url_generator argument is deprecated in drupal:9.3.0": "https://www.drupal.org/files/issues/2022-04-20/3276267.patch"
     }
   }
 }
