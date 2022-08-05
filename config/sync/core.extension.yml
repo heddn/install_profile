@@ -11,7 +11,6 @@ module:
   block_content: 0
   breakpoint: 0
   ckeditor: 0
-  color: 0
   config: 0
   contact: 0
   contextual: 0
@@ -42,6 +41,7 @@ module:
   media_library: 0
   menu_link_content: 0
   menu_ui: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
@@ -54,6 +54,7 @@ module:
   responsive_image: 0
   search: 0
   shortcut: 0
+  sqlite: 0
   system: 0
   taxonomy: 0
   telephone: 0
