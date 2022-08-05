@@ -19,12 +19,11 @@
         "drupal/core": "^9.2@alpha",
         "drupal/core-composer-scaffold": "^9.2@rc",
         "drupal/core-recommended": "^9.2@rc",
-        "drupal/ctools": "^3.4",
         "drupal/default_content": "^2@alpha",
         "drupal/gin": "^3@beta",
         "drupal/gin_lb": "^1@beta",
         "drupal/gin_toolbar": "^1@beta",
-        "drupal/pathauto": "^1.8",
+        "drupal/pathauto": "^1.11",
         "drupal/redirect": "^1.6",
         "drush/drush": "^11",
         "furf/jquery-ui-touch-punch": "dev-master",
@@ -46,6 +45,9 @@
     },
     "conflict": {
         "drupal/drupal": "*"
+    },
+    "replace": {
+        "drupal/ctools": "*"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
