@@ -1,18 +1,14 @@
 {
   "patches": {
     "drupal/core": {
-      "Allow projects to add to the list of skipped deprecations": "https://www.drupal.org/files/issues/2022-02-03/3143388-9.3.x-28.patch"
+      "Allow projects to add to the list of skipped deprecations": "https://www.drupal.org/files/issues/2022-05-19/3143388-9.4.x-37.patch"
     },
     "drupal/default_content": {
       "Reproducible order of import": "https://www.drupal.org/files/issues/2020-10-08/3175870.patch",
-      "[3200212] Import doesn't overwrite files": "https://git.drupalcode.org/project/default_content/-/merge_requests/8.patch",
-      "Deprecated use of drupal_get_path() and drupal_get_filename()": "https://www.drupal.org/files/issues/2021-12-23/3255884.patch"
+      "[3200212] Import doesn't overwrite files": "https://git.drupalcode.org/project/default_content/-/merge_requests/8.patch"
     },
     "drupal/redirect": {
       "isMasterRequest => isMainRequest": "https://www.drupal.org/files/issues/2021-06-29/3216062-7.patch"
-    },
-    "drupal/pathauto": {
-      "Convert ContextAwarePluginBase to traits : Deprecated code warnings: Drupal\\Core\\Plugin\\ContextAwarePluginBase is deprecated in drupal:9.1.0": "https://www.drupal.org/files/issues/2022-01-26/3205627.patch"
     }
   }
 }
