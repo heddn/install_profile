@@ -11,20 +11,11 @@ It was tested on node v14.x.x.
 INSTALLATION
 ------------
 ```
-yarn install
+npm install
 ```
 
 BUILD COMMANDS
 --------------
-- Use `yarn start` to generate CSS for local development. The CSS will
+- Use `npm run start` to generate CSS for local development. The CSS will
   be re-compiled automatically when changes are made.
-- Use `yarn build-prod` to generate CSS optimized for production site.
-
-OPTIMISING FOR PRODUCTION
--------------------------
-
-The theme's `tailwind.config.js` file contains a section on adding PurgeCSS to
-the build to remove any unused classes and reduce the generated file size.
-
-If you add any classes programmatically, such as within a preprocess function,
-it can be whitelisted using `whitelistPatterns` or `whitelistPatternsChildren`.
+- Use `npm run build-prod` to generate CSS optimized for production site.

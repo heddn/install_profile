@@ -1,20 +1,47 @@
-custom_tw.image.small:
-  label: mobile
+custom_tw.image.xsmall:
+  label: small
   mediaQuery: ''
   weight: 0
   multipliers:
     - 1x
     - 2x
-custom_tw.image.medium:
-  label: normal
-  mediaQuery: 'all and (min-width: 1024px) and (max-width: 1279px)'
+    - 3x
+custom_tw.image.small:
+  label: small
+  mediaQuery: 'all and (min-width: 640px)'
   weight: 1
   multipliers:
     - 1x
     - 2x
-custom_tw.image.large:
-  label: wide
-  mediaQuery: 'all and (min-width: 1280px)'
+    - 3x
+custom_tw.image.medium:
+  label: medium
+  mediaQuery: 'all and (min-width: 768px)'
   weight: 2
   multipliers:
     - 1x
+    - 2x
+    - 3x
+custom_tw.image.large:
+  label: large
+  mediaQuery: 'all and (min-width: 1024px)'
+  weight: 3
+  multipliers:
+    - 1x
+    - 2x
+    - 3x
+custom_tw.image.xlarge:
+  label: xlarge
+  mediaQuery: 'all and (min-width: 1280px)'
+  weight: 4
+  multipliers:
+    - 1x
+    - 2x
+    - 3x
+custom_tw.image.2xlarge:
+  label: 2xlarge
+  mediaQuery: 'all and (min-width: 1536px)'
+  weight: 5
+  multipliers:
+    - 1x
+    - 2x

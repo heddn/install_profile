@@ -1,0 +1,29 @@
+uuid: 6fb59603-5e88-4b71-8661-8b340d0eb98c
+langcode: en
+status: true
+dependencies:
+  module:
+    - image_style_quality
+name: xlarge_3x
+label: 'X-Large (5940w) 3x'
+effects:
+  b43fbaa4-68d0-48f8-af29-ce89486827f1:
+    uuid: b43fbaa4-68d0-48f8-af29-ce89486827f1
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  6244fd59-f855-40a0-a515-b3906ca4dee6:
+    uuid: 6244fd59-f855-40a0-a515-b3906ca4dee6
+    id: image_scale
+    weight: 2
+    data:
+      width: 5940
+      height: null
+      upscale: false
+  ecbeb7bb-e2e7-48b8-8ded-0dbac5cb7fed:
+    uuid: ecbeb7bb-e2e7-48b8-8ded-0dbac5cb7fed
+    id: image_style_quality
+    weight: 3
+    data:
+      quality: 30

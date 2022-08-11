@@ -11,6 +11,8 @@ module:
   block_content: 0
   breakpoint: 0
   ckeditor: 0
+  codemirror_editor: 0
+  component_library: 0
   config: 0
   contact: 0
   contextual: 0
@@ -20,6 +22,8 @@ module:
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
+  entity: 0
+  entity_clone: 0
   field: 0
   field_ui: 0
   file: 0
@@ -29,6 +33,7 @@ module:
   help: 0
   history: 0
   image: 0
+  image_style_quality: 0
   jquery_ui: 0
   jquery_ui_datepicker: 0
   jquery_ui_slider: 0
@@ -55,6 +60,7 @@ module:
   shortcut: 0
   sqlite: 0
   system: 0
+  tailwindcss_utility: 0
   taxonomy: 0
   telephone: 0
   text: 0

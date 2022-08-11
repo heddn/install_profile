@@ -14,11 +14,15 @@
   {%
     set classes = [
       'layout',
+      'container',
+      'mx-auto',
       'grid',
       'grid-cols-2',
       'sm:grid-cols-3',
       'md:grid-cols-6',
-      'p-2',
+      'px-8',
+      'py-12',
+      'lg:py-32',
     ]
   %}
   <div{{ attributes.addClass(classes) }}>
@@ -61,4 +65,3 @@
 
   </div>
 {% endif %}
-

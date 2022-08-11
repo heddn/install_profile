@@ -1,0 +1,29 @@
+uuid: ec106523-5075-42b3-a6f8-b2e4cee795b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.tile
+    - field.storage.block_content.field_media
+    - media.type.image
+id: block_content.tile.field_media
+field_name: field_media
+entity_type: block_content
+bundle: tile
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: image
+field_type: entity_reference

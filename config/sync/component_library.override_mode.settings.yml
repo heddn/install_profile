@@ -1,0 +1,5 @@
+_core:
+  default_config_hash: CH2pltAcGmHPYs0Nm-phc5ivTiof1qcRAn6cJ98Q1pI
+variables_max_size: 6000
+override_mode: true
+memory_limit: 256

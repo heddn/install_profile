@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "build": "./scripts/build-tailwind-drupal.sh",
-    "build-prod": "cross-env NODE_ENV=production yarn build",
-    "build-dev": "cross-env NODE_ENV=development yarn build",
-    "watch-tailwind": "yarn build-dev -w",
+    "build-prod": "cross-env NODE_ENV=production npm run build",
+    "build-dev": "cross-env NODE_ENV=development npm run build",
+    "watch-tailwind": "watch 'npm run build-dev' ./css",
     "browser-sync": "browser-sync start --config bs-config.js",
     "start": "run-p watch-tailwind browser-sync"
   },
@@ -21,11 +21,12 @@
     "cross-env": "^7.0.3",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.4",
-    "postcss-cli": "^10",
+    "postcss-cli": "^9",
     "postcss-import": "^14.0.1",
-    "tailwindcss": "^3"
+    "prettier": "^2.6.2",
+    "tailwindcss": "^3",
+    "watch": "^0.13.0"
   },
-  "dependencies": {},
   "engines": {
     "node": "~16",
     "npm": "~8"

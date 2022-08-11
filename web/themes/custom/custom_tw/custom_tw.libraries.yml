@@ -1,11 +1,21 @@
-global-styling:
+pre-global-styling:
   css:
     theme:
       build/app--pre-utilities.css: {}
-      build/app--tailwind-utilities.css: {}
-      build/app--post-utilities.css: {}
   js:
-    js/alpine.min.js: {}
+    /libraries/alpine/cdn.min.js: {}
+global-styling:
+  css:
+    theme:
+      build/app--tailwind-utilities.css?tailwind-dynamic=1: {preprocess: false}
+  dependencies:
+    - custom_tw/pre-global-styling
+post-global-styling:
+  css:
+    theme:
+      build/app--post-utilities.css: {}
+  dependencies:
+    - custom_tw/global-styling
 messages:
   js:
     js/messages.js: {}

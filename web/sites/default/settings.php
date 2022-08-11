@@ -1,5 +1,11 @@
 <?php
 
+$settings['tailwind_css_json_path'] = 'themes/custom/custom_tw/build/app--tailwind-utilities.json';
+$settings['tailwind_local_config_path'] = 'themes/custom/custom_tw/build/tailwind-config-cdn.js';
+// Enable Tailwind CDN loading.
+// @todo optionally make this environment-specific.
+$settings['tailwindcss_utility_include_cdn'] = TRUE;
+
 $settings['config_exclude_modules'] = [
   'devel_entity_updates',
   'devel_generate',
