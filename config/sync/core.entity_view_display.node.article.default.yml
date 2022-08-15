@@ -3,15 +3,30 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.basic
     - field.field.node.article.body
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
+    - field.field.node.article.layout_builder__layout
     - image.style.large
     - node.type.article
   module:
     - image
+    - layout_builder
+    - layout_discovery
     - text
     - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components: {  }
+        third_party_settings: {  }
 _core:
   default_config_hash: ChmU3AVqDKU32A_fyChG0W9dTRKmVBR58B6OClCLvZI
 id: node.article.default
@@ -50,4 +65,5 @@ content:
     third_party_settings: {  }
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  layout_builder__layout: true

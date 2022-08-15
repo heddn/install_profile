@@ -3,23 +3,48 @@ langcode: en
 status: true
 dependencies:
   config:
-    - image.style.max_1300x1300
-    - image.style.max_325x325
-    - image.style.max_650x650
+    - image.style.2x_small_1x
+    - image.style.2x_small_2x
+    - image.style.2x_small_3x
+    - image.style.xsmall_1x
+    - image.style.xsmall_2x
+    - image.style.xsmall_3x
+  theme:
+    - custom_tw
 _core:
   default_config_hash: xAduWBNBoi9WKBMCoVIKSueNYqPK84SiiZwQYKPbkaE
 id: narrow
 label: Narrow
 image_style_mappings:
   -
-    image_mapping_type: sizes
-    image_mapping:
-      sizes: '(min-width: 1290px) 325px, (min-width: 851px) 25vw, (min-width: 560px) 50vw, 100vw'
-      sizes_image_styles:
-        - max_1300x1300
-        - max_650x650
-        - max_325x325
-    breakpoint_id: responsive_image.viewport_sizing
+    image_mapping_type: image_style
+    image_mapping: 2x_small_1x
+    breakpoint_id: custom_tw.image.large
     multiplier: 1x
-breakpoint_group: responsive_image
-fallback_image_style: max_325x325
+  -
+    image_mapping_type: image_style
+    image_mapping: 2x_small_2x
+    breakpoint_id: custom_tw.image.large
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: 2x_small_3x
+    breakpoint_id: custom_tw.image.large
+    multiplier: 3x
+  -
+    image_mapping_type: image_style
+    image_mapping: xsmall_1x
+    breakpoint_id: custom_tw.image.medium
+    multiplier: 1x
+  -
+    image_mapping_type: image_style
+    image_mapping: xsmall_2x
+    breakpoint_id: custom_tw.image.medium
+    multiplier: 2x
+  -
+    image_mapping_type: image_style
+    image_mapping: xsmall_3x
+    breakpoint_id: custom_tw.image.medium
+    multiplier: 3x
+breakpoint_group: custom_tw
+fallback_image_style: 2x_small_1x

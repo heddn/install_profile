@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a86c74573b0e3dda6105c3cfcfb9eac0",
+    "content-hash": "607754dfb98c25de819f7849fed930f4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1398,31 +1398,28 @@
         },
         {
             "name": "drupal/codemirror_editor",
-            "version": "1.7.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/codemirror_editor.git",
-                "reference": "8.x-1.7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/codemirror_editor-8.x-1.7.zip",
-                "reference": "8.x-1.7",
-                "shasum": "fa21c344f869a6843d067a0bcad4b43313f43b71"
+                "reference": "7e46832c88bb5f3a0dffe10586d9e82364803ad4"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9.0",
+                "drupal/core": "^9.3 || ^10",
                 "ext-json": "*",
                 "php": ">=7.1"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-1.7",
-                    "datestamp": "1614615150",
+                    "version": "8.x-1.7+6-dev",
+                    "datestamp": "1652902231",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -2106,6 +2103,62 @@
             }
         },
         {
+            "name": "drupal/entity_clone",
+            "version": "1.0.0-beta6",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_clone.git",
+                "reference": "8.x-1.0-beta6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_clone-8.x-1.0-beta6.zip",
+                "reference": "8.x-1.0-beta6",
+                "shasum": "35d04649b6fb349df761abab37506a94f172981f"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta6",
+                    "datestamp": "1617209997",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "colan",
+                    "homepage": "https://www.drupal.org/user/58704"
+                },
+                {
+                    "name": "NickDickinsonWilde",
+                    "homepage": "https://www.drupal.org/user/3094661"
+                },
+                {
+                    "name": "Upchuk",
+                    "homepage": "https://www.drupal.org/user/1885838"
+                },
+                {
+                    "name": "vpeltot",
+                    "homepage": "https://www.drupal.org/user/1361586"
+                }
+            ],
+            "description": "Add a clone action for all entities",
+            "homepage": "https://www.drupal.org/project/entity_clone",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_clone"
+            }
+        },
+        {
             "name": "drupal/gin",
             "version": "3.0.0-beta5",
             "source": {
@@ -2343,6 +2396,57 @@
                     "url": "https://paypal.me/saschaeggi"
                 }
             ]
+        },
+        {
+            "name": "drupal/image_style_quality",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/image_style_quality.git",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/image_style_quality-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "5c2e80cfe88d8902ac9c7b6b3c70f6e8c893ffe1"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "require-dev": {
+                "drupal/imagemagick": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1597367306",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Charlton",
+                    "homepage": "https://www.drupal.org/user/17089"
+                },
+                {
+                    "name": "Sam152",
+                    "homepage": "https://www.drupal.org/user/1485048"
+                }
+            ],
+            "description": "Provides an image effect plugin that allows you to choose the quality of images.",
+            "homepage": "https://www.drupal.org/project/image_style_quality",
+            "support": {
+                "source": "https://git.drupalcode.org/project/image_style_quality"
+            }
         },
         {
             "name": "drupal/jquery_ui",
@@ -2714,6 +2818,55 @@
             "homepage": "https://www.drupal.org/project/redirect",
             "support": {
                 "source": "https://git.drupalcode.org/project/redirect"
+            }
+        },
+        {
+            "name": "drupal/tailwindcss_utility",
+            "version": "dev-2.0.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/tailwindcss_utility.git",
+                "reference": "a04ad6bd675da1d801cd6b50c047de2ca94b5f1b"
+            },
+            "require": {
+                "drupal/core": "^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.0.x": "2.0.x-dev"
+                },
+                "drupal": {
+                    "version": "2.0.x-dev",
+                    "datestamp": "1654609154",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Fabianx",
+                    "homepage": "https://www.drupal.org/user/693738"
+                },
+                {
+                    "name": "Graber",
+                    "homepage": "https://www.drupal.org/user/1599440"
+                },
+                {
+                    "name": "heddn",
+                    "homepage": "https://www.drupal.org/user/1463982"
+                }
+            ],
+            "description": "Tailwind Utilities",
+            "homepage": "https://www.drupal.org/project/tailwindcss_utility",
+            "support": {
+                "source": "https://git.drupalcode.org/project/tailwindcss_utility"
             }
         },
         {
@@ -13562,14 +13715,17 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "drupal/better_exposed_filters": 10,
+        "drupal/codemirror_editor": 20,
         "drupal/component_library": 20,
         "drupal/core": 15,
         "drupal/core-composer-scaffold": 5,
         "drupal/core-recommended": 5,
         "drupal/default_content": 15,
+        "drupal/entity_clone": 20,
         "drupal/gin": 10,
         "drupal/gin_lb": 10,
         "drupal/gin_toolbar": 10,
+        "drupal/tailwindcss_utility": 20,
         "furf/jquery-ui-touch-punch": 20,
         "drupal/core-dev": 5,
         "roave/security-advisories": 20

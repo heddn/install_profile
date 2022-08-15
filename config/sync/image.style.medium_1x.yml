@@ -1,0 +1,21 @@
+uuid: 34d5306e-88e0-45d7-9611-5165da5ad66c
+langcode: en
+status: true
+dependencies: {  }
+name: medium_1x
+label: 'Medium (1024w) 1x'
+effects:
+  b43fbaa4-68d0-48f8-af29-ce89486827f1:
+    uuid: b43fbaa4-68d0-48f8-af29-ce89486827f1
+    id: image_convert
+    weight: 1
+    data:
+      extension: webp
+  6244fd59-f855-40a0-a515-b3906ca4dee6:
+    uuid: 6244fd59-f855-40a0-a515-b3906ca4dee6
+    id: image_scale
+    weight: 2
+    data:
+      width: 1024
+      height: null
+      upscale: false

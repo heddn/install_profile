@@ -1,0 +1,23 @@
+uuid: 0d564d1f-16c3-4a81-88c0-c0cfc3d0ae65
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.tile
+    - field.storage.block_content.field_link
+  module:
+    - link
+id: block_content.tile.field_link
+field_name: field_link
+entity_type: block_content
+bundle: tile
+label: Link
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

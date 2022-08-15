@@ -30,9 +30,9 @@
       'border-solid',
       'border-l-4',
       'rounded-md',
-      type == 'status' ? 'text-branding-status-dark bg-branding-status-light border-branding-status',
-      type == 'warning' ? 'text-branding-warning-dark bg-branding-warning-light border-branding-warning',
-      type == 'error' ? 'text-branding-error-dark bg-branding-error-light border-branding-error',
+      type == 'status' ? 'text-teal-900 bg-emerald-100 border-emerald-600',
+      type == 'warning' ? 'text-orange-900 bg-yellow-100 border-yellow-600',
+      type == 'error' ? 'text-red-900 bg-red-100 border-red-600',
     ]
   %}
   <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>

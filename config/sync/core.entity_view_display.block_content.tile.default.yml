@@ -1,0 +1,48 @@
+uuid: 44752f56-a663-4e76-b06e-f869f0e467c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.tile
+    - field.field.block_content.tile.body
+    - field.field.block_content.tile.field_link
+    - field.field.block_content.tile.field_media
+  module:
+    - link
+    - text
+_core:
+  default_config_hash: orJpHUlAc_wiQLMUjIgEJXGeiqylGHMPcmNRjGtct-M
+id: block_content.tile.default
+targetEntityType: block_content
+bundle: tile
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_link:
+    type: link_separate
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_media:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }

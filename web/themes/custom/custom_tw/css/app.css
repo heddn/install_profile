@@ -4,77 +4,6 @@
 @import "./tailwind-utilities.css";
 /* --- TAILWIND-UTILITIES-DRUPAL-SPLIT */
 
-html, body {
-  @apply antialiased;
-  @apply text-branding-outer-space;
-  font-size: 15px;
-  line-height: 1.5em;
-  /* Fallback font for pages without group context. */
-  font-family: Arial, sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.25em;
-  margin-bottom: 0.5em;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 900;
-}
-
-h2 {
-  font-size: 1.58rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-}
-
-h4, h5 {
-  font-size: 1rem;
-}
-
-h6 {
-  font-size: 0.833rem;
-  font-weight: 600;
-}
-
-p {
-  margin-bottom: 1.5em;
-}
-
-/* -------- GROUP MENU -------- */
-.site-menu {
-  font-size: 0.9rem;
-}
-
-@screen md {
-  html, body{
-    font-size: 16px;
-  }
-
-  .select2-container .select2-selection {
-    @apply text-sm;
-  }
-}
-
-@screen lg {
-  html, body{
-    font-size: 18px;
-  }
-}
-
-@screen xl {
-  html, body{
-    font-size: 20px;
-  }
-}
-
-@screen 2xl { }
-
-
 /* -------- ADMIN PAGE STYLES -------- */
 
 /*  TOOLBAR  */
@@ -96,6 +25,7 @@ p {
   background-size: 0.5rem 0.5rem;
 }
 
+/* Select 2 */
 .select2-container .select2-selection {
   height: 2.5em;
   padding: 0.25em;
@@ -131,26 +61,12 @@ p {
   @apply text-gray-600;
 }
 
-.space-x-4 > .description {
-  margin-left: 0 !important;
-}
+/* Table drag */
 
-.filter-wrapper {
-  @apply border-0;
-}
-
-details.bg-gray-100 {
-  @apply p-4;
-}
-
-details.bg-gray-100 details {
-  @apply p-0;
-  @apply mt-6;
-  @apply pt-6;
-  @apply border-gray-400;
-  @apply border-solid;
-  @apply border-t;
-  @apply rounded-none;
+a.tabledrag-handle .handle {
+  height: auto;
+  width: auto;
+  margin: 0 0.5em 0 0;
 }
 
 /* -------- BUTTONS -------- */
@@ -158,7 +74,7 @@ details.bg-gray-100 details {
   @apply transition-colors;
 }
 
-a.button {
+a.button, button[type=submit] {
   @apply px-6;
   @apply py-2;
   @apply border-solid;
@@ -171,10 +87,21 @@ a.button {
   @apply border;
 }
 
+button[type=submit] {
+  @apply mb-6;
+  @apply mr-3;
+  @apply hover:bg-gray-200 text-lg font-bold text-black w-max py-4 px-8 mt-8;
+}
+
+form, #block-custom-tw-help {
+  @apply container;
+  @apply mx-auto;
+}
+
 a.button.button--danger {
-  @apply bg-branding-error-light;
-  @apply text-branding-athens;
-  @apply border-branding-error-dark;
+  @apply bg-red-900;
+  @apply text-neutral-100;
+  @apply border-red-700;
 }
 
 a.button:hover {
@@ -182,11 +109,15 @@ a.button:hover {
 }
 
 a.button.button--danger:hover {
-  @apply bg-branding-error-dark;
+  @apply bg-red-700;
 }
 
 a.button:focus {
   @apply outline-none;
+}
+
+button[type=submit] {
+
 }
 
 /* -------- ALERTS -------- */
@@ -209,14 +140,6 @@ a.button:focus {
   @apply space-y-2;
 }
 
-.cke_editable h1,
-.cke_editable h2,
-.cke_editable h3,
-.user-content h1,
-.user-content h2,
-.user-content h3 {
-  @apply font-semibold;
-}
 .cke_editable ul,
 .user-content ul {
   @apply list-disc;
@@ -231,7 +154,7 @@ a.button:focus {
 
 .cke_editable a,
 .user-content a {
-  @apply underline;
+  @apply text-cyan-600;
 }
 
 .cke_editable .align-left,
@@ -255,9 +178,6 @@ a.button:focus {
 }
 
 /* -------- LAYOUT BUILDER -------- */
-
-/* hide 'Add block' button after entity browser block */
-.layout-builder-block.entity-browser-block{margin-bottom: -130px !important;}
 
 [x-cloak] {
   display: none !important;

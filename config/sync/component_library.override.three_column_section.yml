@@ -1,0 +1,57 @@
+uuid: df53eefb-1a8a-431a-bff1-9791c3c0389a
+langcode: en
+status: true
+dependencies: {  }
+id: three_column_section
+label: 'three column section'
+override: layout__threecol_section
+theme: custom_tw
+plugin: override_mode
+plugin_data: '{"base_hook":"layout__threecol_section","cache":"override:layout__threecol_section"}'
+template: |
+  {#
+    /**
+    * @file
+    * Theme override for a three-column layout.
+    *
+    * Available variables:
+        * - content: The content for this layout.
+        * - attributes: HTML attributes for the layout <div>.
+        */
+        #}
+        {% if content %}
+        <div {{ tailwindcss_classes_attribute }}>
+        <div{{ attributes.addClass(classes, 'container mx-auto px-8 py-12 lg:py-32') }}>
+          {% set classesFirst = [] %}
+          {% set classesSecond = ['sm:pl-3'] %}
+          {% set classesThird = ['sm:pl-3'] %}
+          {% if content.second %}
+            {% set classesFirst = classesFirst|merge(['sm:pr-3']) %}
+          {% endif %}
+          {% if content.third %}
+            {% set classesSecond = classesSecond|merge(['sm:pr-3']) %}
+          {% endif %}
+
+          {% if content.first %}
+            <div {{ region_attributes.first.addClass('layout__region', 'layout__region--first', classesFirst) }}>
+              {{ content.first }}
+            </div>
+          {% endif %}
+
+          {% if content.second %}
+            <div {{ region_attributes.second.addClass('layout__region', 'layout__region--second', classesSecond) }}>
+              {{ content.second }}
+            </div>
+          {% endif %}
+
+          {% if content.third %}
+            <div {{ region_attributes.third.addClass('layout__region', 'layout__region--third', classesThird) }}>
+              {{ content.third }}
+            </div>
+          {% endif %}
+
+        </div>
+        </div>
+        {% endif %}
+variables: N;
+libraries: {  }

@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.article.body
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
+    - field.field.node.article.layout_builder__layout
     - image.style.thumbnail
     - node.type.article
   module:
@@ -103,4 +104,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  layout_builder__layout: true

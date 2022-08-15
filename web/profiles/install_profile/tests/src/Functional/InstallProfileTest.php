@@ -61,6 +61,11 @@ final class InstallProfileTest extends BrowserTestBase {
 
     $this->assertInstalledConfig($this->defaultSkippedConfig());
 
+    // Disable override mode.
+    \Drupal::configFactory()->getEditable('component_library.override_mode.settings')
+      ->set('override_mode', FALSE)
+      ->save();
+
     // Test that default content is created.
     $admin = $this->createUser([], NULL, TRUE);
     $admin->addRole('administrator');

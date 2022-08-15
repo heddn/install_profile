@@ -19,7 +19,9 @@ regions:
   footer: 'Footer'
   sticky_footer: 'Sticky footer'
 libraries:
+  - custom_tw/pre-global-styling
   - custom_tw/global-styling
+  - custom_tw/post-global-styling
 libraries-extend:
   core/drupal.message:
     - custom_tw/messages

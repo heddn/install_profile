@@ -23,5 +23,5 @@ module.exports = {
     'images/**/*',
     '../../../modules/custom/**/*',
   ],
-  proxy: process.env.BS_PROXY ?? 'localhost'
+  proxy: process.env.BS_PROXY ?? 'install-profile.ddev.site'
 };
