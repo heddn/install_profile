@@ -76,11 +76,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: web/themes/custom/custom_tw/package-lock.json
       - name: Install NPM dependencies
-        run: yarn --cwd=${{env.THEME_DIRECTORY}} install
+        run: npm --prefix=${{env.THEME_DIRECTORY}} install
       - name: Compile CSS
         run: |
-          yarn --cwd=${{env.THEME_DIRECTORY}} build-prod
-          ls -lh ${{env.THEME_DIRECTORY}}/css/app.css
+          npm --prefix=${{env.THEME_DIRECTORY}} run build-prod
+          ls -lh ${{env.THEME_DIRECTORY}}/build/app.css
           rm -r ${{env.THEME_DIRECTORY}}/node_modules
       - name: Run test suite
         run: |
