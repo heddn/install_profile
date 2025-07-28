@@ -43,7 +43,8 @@
         "ergebnis/phpstan-rules": "^2",
         "mglaman/drupal-check": "^1.1",
         "phpstan/phpstan-strict-rules": "^1",
-        "roave/security-advisories": "@dev"
+        "roave/security-advisories": "@dev",
+        "staabm/annotate-pull-request-from-checkstyle": "^1.8"
     },
     "conflict": {
         "drupal/drupal": "*"
