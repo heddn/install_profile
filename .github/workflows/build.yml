@@ -2,22 +2,47 @@ name: Test and build
 
 on:
   push:
-    branches-ignore:
-      # Trigger on push to any branch besides master
-      - master
-
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
 
 env:
   COMPOSER_FLAGS: "--ansi --no-interaction --no-progress --prefer-dist --optimize-autoloader"
-  BROWSERTEST_OUTPUT_DIRECTORY: web/sites/simpletest/browser_output
+  BROWSERTEST_OUTPUT_DIRECTORY: ${{ github.workspace }}/web/sites/simpletest/browser_output
   THEME_DIRECTORY: web/themes/custom/custom_tw
   PHP_EXTENSIONS: sodium, json, pdo_sqlite, gd, xml, iconv, intl, ctype, mbstring
-  PHP_VERSION: 7.4
+  PHP_VERSION: 8.2
+  NODE_VERSION: 22
+
+permissions:
+  actions: write
+  contents: write
+  id-token: write
+  issues: write
+  pull-requests: write
+
 jobs:
   test:
     name: Testing
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:10.6
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: db
+          MYSQL_PASSWORD: db
+          MYSQL_DATABASE: db
+          MYSQL_ROOT_PASSWORD: root
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
     steps:
       - name: Setup cache PHP extensions
         id: extcache
@@ -49,8 +74,7 @@ jobs:
         run: composer validate
       - name: Set Composer Cache Directory
         id: composer-cache
-        run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - uses: actions/cache@v2
         with:
           path: ${{steps.composer-cache.outputs.dir}}
@@ -62,17 +86,27 @@ jobs:
       - name: PHP linting
         run: composer lint
       - name: Run PHPCBF
-        run: composer phpcbf web/modules/custom web/themes/custom
+        continue-on-error: true
+        run: composer phpcbf web/modules/custom web/themes/custom web/profiles
+      - uses: stefanzweifel/git-auto-commit-action@v5.0.1
+        with:
+          commit_message: Auto-commit phpcbf changes
       - name: Run PHPCS
-        run: vendor/bin/phpcs --report=checkstyle web/modules/custom web/themes/custom web/profiles
+        run: vendor/bin/phpcs -s --report=checkstyle web/modules/custom web/themes/custom web/profiles | vendor/bin/cs2pr
       - name: Prepare test output directory
         run: mkdir -p ${{env.BROWSERTEST_OUTPUT_DIRECTORY}}
-      - name: Deprecation checking
+      - name: Static analysis
         run: composer phpstan web/modules/custom web/themes/custom web/profiles
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Verify MariaDB connection
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"${{ job.services.mariadb.ports[3306] }}" --silent; do
+            echo "Waiting for db to start..."
+            sleep 1
+          done
+      - name: Setup Node + Yarn
+        uses: actions/setup-node@v4.0.2
         with:
-          node-version: '16'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: web/themes/custom/custom_tw/package-lock.json
       - name: Install NPM dependencies
@@ -85,16 +119,16 @@ jobs:
       - name: Run test suite
         run: |
           nohup composer webserver > /dev/null 2>&1 &
-          composer test
+          BROWSERTEST_DB_DUMP_PATH=${{ github.workspace }}/test-artifacts/test-COMMIT-HASH.sql composer test
         env:
-          SIMPLETEST_DB: 'sqlite://tmp/test.sqlite'
+          SIMPLETEST_DB: mysql://db:db@127.0.0.1:${{ job.services.mariadb.ports[3306] }}/db
           SIMPLETEST_BASE_URL: 'http://127.0.0.1:8888'
-      - name: Build archive of test artifacts
-        if: always()
-        run: tar czf artifacts.tar.gz web/sites/simpletest/
+          PHP_CLI_SERVER_WORKERS: 2
       - name: Upload archive of test artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.3.3
         if: always()
         with:
-          name: artifacts.tar.gz
-          path: artifacts.tar.gz
+          name: artifacts
+          path: |
+            web/sites/simpletest/*
+          if-no-files-found: ignore

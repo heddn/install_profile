@@ -1,7 +1,7 @@
 ---
 name: "\U0001F6A7 Task"
 about: Work to be done
-title: ''
+title: "#.# "
 labels: ''
 assignees: ''
 
@@ -29,8 +29,10 @@ Related to #...
 <!-- When - select an option: no testing required, one time verification only, verfiy & add a regression test -->
 <!-- Where - which env should it be verified on? i.e. on test env on Aug 10th, or production env after xyz is deployed -->
 <!-- How - steps for manual verification. describe a failure scenario if appropriate.  -->
-What: 
-When: 
-Where: 
-How: 
+What:
+When:
+Where:
+How:
 
+## UAT Verification Instructions
+<!-- (optional) -->
