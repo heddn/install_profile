@@ -6,7 +6,10 @@ parameters:
   checkMissingVarTagTypehint: true
   checkMissingTypehints: true
   ergebnis:
-    allowAbstractClasses: true
+    final:
+      allowAbstractClasses: true
+    noNullableReturnTypeDeclaration:
+      enabled: false
   # Ignore phpstan-drupal extension's rules.
   ignoreErrors:
     - '#[a-zA-Z0-9\\_\(\) ]+ return type has no value type specified in iterable type array#'
@@ -31,11 +34,6 @@ parameters:
         storage: Drupal\user\UserStorage
       block:
         class: Drupal\block\Entity\Block
-includes:
-  - vendor/mglaman/phpstan-drupal/extension.neon
-  - vendor/phpstan/phpstan-deprecation-rules/rules.neon
-  - vendor/phpstan/phpstan-strict-rules/rules.neon
-  - vendor/ergebnis/phpstan-rules/rules.neon
 services:
   -
     class: PHPStan\Rules\Functions\MissingFunctionReturnTypehintRule
