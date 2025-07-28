@@ -18,7 +18,7 @@ env:
   BROWSERTEST_OUTPUT_DIRECTORY: ${{ github.workspace }}/web/sites/simpletest/browser_output
   THEME_DIRECTORY: web/themes/custom/custom_tw
   PHP_EXTENSIONS: sodium, json, pdo_sqlite, gd, xml, iconv, intl, ctype, mbstring
-  PHP_VERSION: 8.2
+  PHP_VERSION: 8.3
   NODE_VERSION: 22
 
 permissions:
