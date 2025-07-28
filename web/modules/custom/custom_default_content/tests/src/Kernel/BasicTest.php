@@ -19,7 +19,6 @@ final class BasicTest extends NodeAccessTestBase {
    */
   protected static $modules = [
     'default_content',
-    'hal',
     'file',
     'serialization',
     'taxonomy',

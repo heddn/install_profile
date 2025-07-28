@@ -76,7 +76,9 @@ trait ConfigInstallTestTrait {
       // The system.mail is changed configuration because the test system
       // changes it to ensure that mails are not sent.
       'system.mail' => [
-        'test_mail_collector',
+        'interface.default' => 'test_mail_collector',
+        'mailer_dsn.schema' => 'null',
+        'mailer_dsn.host' => 'null',
       ],
       // TODO: work out why this has changed but it is not particularly
       // important.

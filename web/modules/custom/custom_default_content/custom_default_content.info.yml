@@ -2,7 +2,7 @@ name: Custom Default Content
 type: module
 description: 'Provides default content'
 package: Custom
-core_version_requirement: ^9
+core_version_requirement: ^10 || ^11
 dependencies:
   - drupal:node
 default_content:

@@ -9,43 +9,41 @@
         "chat": "https://www.drupal.org/node/314178"
     },
     "require": {
-        "php": ">=7.4.0",
+        "php": ">=8.3.0",
         "composer/installers": "^2",
         "cweagans/composer-patches": "^1.6.5",
         "drupal/admin_toolbar": "^3",
         "drupal/better_exposed_filters": "^6.0",
-        "drupal/codemirror_editor": "1.x-dev",
-        "drupal/component_library": "^1@dev",
+        "drupal/codemirror_editor": "^1",
+        "drupal/component_library": "^1@alpha",
         "drupal/config_ignore": "^2.3",
-        "drupal/core": "^9.2@alpha",
-        "drupal/core-composer-scaffold": "^9.2@rc",
-        "drupal/core-recommended": "^9.2@rc",
+        "drupal/core-composer-scaffold": "^10.4",
+        "drupal/core-recommended": "^10.4",
         "drupal/default_content": "^2@alpha",
-        "drupal/entity_clone": "@dev",
+        "drupal/entity_clone": "^2@beta",
         "drupal/gin": "^3@beta",
         "drupal/gin_lb": "^1@beta",
         "drupal/gin_toolbar": "^1@beta",
         "drupal/image_style_quality": "^1.4",
+        "drupal/js_cookie": "^1.0",
         "drupal/pathauto": "^1.11",
         "drupal/redirect": "^1.6",
-        "drupal/tailwindcss_utility": "^2@dev",
-        "drush/drush": "^11",
+        "drupal/tailwindcss_utility": "^2",
+        "drush/drush": "^12",
         "furf/jquery-ui-touch-punch": "dev-master",
         "vlucas/phpdotenv": "^5.0"
     },
     "require-dev": {
         "chi-teck/drupal-coder-extension": "^1.0",
+        "davidrjonas/composer-lock-diff": "^1.7",
         "drupal/config_inspector": "^2",
-        "drupal/core-dev": "^9.2@rc",
+        "drupal/core-dev": "^10.4.0",
         "drupal/devel": "^5.0",
-        "drupal/stage_file_proxy": "^1.1",
-        "ergebnis/phpstan-rules": "^1",
+        "drupal/stage_file_proxy": "^3.1",
+        "ergebnis/phpstan-rules": "^2",
         "mglaman/drupal-check": "^1.1",
-        "phpspec/prophecy-phpunit": "^2",
         "phpstan/phpstan-strict-rules": "^1",
-        "phpunit/phpunit": "^9",
-        "roave/security-advisories": "dev-master",
-        "symfony/phpunit-bridge": "^5.3"
+        "roave/security-advisories": "@dev"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -56,17 +54,17 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "config": {
-        "platform": {
-            "php": "7.4.1"
-        },
         "preferred-install": "dist",
         "process-timeout": 36000,
         "sort-packages": true,
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
             "composer/installers": true,
             "cweagans/composer-patches": true,
-            "drupal/core-composer-scaffold": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "drupal/core-composer-scaffold": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "tbachert/spi": true
         }
     },
     "autoload": {
@@ -74,12 +72,34 @@
     },
     "scripts": {
         "phpstan": "phpstan analyse --",
-        "si": "drush sql-drop -y && drush site:install -v install_profile --existing-config --yes --sites-subdir=default --account-name=admin-user-default",
+        "phpstan-baseline-update": "phpstan analyze web/modules/custom web/themes/custom web/profiles --generate-baseline ./phpstan-baseline.neon",
+        "si": [
+            "Composer\\Config::disableProcessTimeout",
+            "drush sql-drop -y",
+            "drush site:install -v install_profile --existing-config --yes --sites-subdir=default --account-name=admin-user-default",
+            "drush deploy"
+        ],
         "phpcs": "phpcs --",
         "phpcbf": "phpcbf --",
-        "lint": "find web/modules/custom web/themes/custom -name '*.php' -exec php -l {} \\;",
-        "webserver": "cd web && php -S 0.0.0.0:8888 .ht.router.php",
-        "test": "phpunit --list-tests web/modules/custom && DRUPAL_DEPRECATION_SKIP_FILE=$(pwd)/.skipped_deprecations.json phpunit --verbose web/modules/custom && phpunit --list-tests web/profiles && DRUPAL_DEPRECATION_SKIP_FILE=$(pwd)/.skipped_deprecations.json phpunit --verbose web/profiles"
+        "lint": "find web/modules/custom web/themes/custom web/profiles -name '*.php' -exec php -l {} \\;",
+        "webserver": [
+            "Composer\\Config::disableProcessTimeout",
+            "cd web && php -S 0.0.0.0:8888 .ht.router.php"
+        ],
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit --list-tests web/modules/custom",
+            "SYMFONY_DEPRECATIONS_HELPER=\"baselineFile=../.baseline-module-deprecations.json&ignoreFile=../web/core/.deprecation-ignore.txt\" phpunit --verbose web/modules/custom",
+            "phpunit --list-tests web/profiles",
+            "SYMFONY_DEPRECATIONS_HELPER=\"baselineFile=../.baseline-profile-deprecations.json&ignoreFile=../web/core/.deprecation-ignore.txt\"  phpunit --verbose web/profiles"
+        ],
+        "test-baseline-update": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit --list-tests web/modules/custom",
+            "SYMFONY_DEPRECATIONS_HELPER=\"generateBaseline=true&baselineFile=../.baseline-module-deprecations.json&ignoreFile=../web/core/.deprecation-ignore.txt\" phpunit --verbose web/modules/custom",
+            "phpunit --list-tests web/profiles",
+            "SYMFONY_DEPRECATIONS_HELPER=\"generateBaseline=true&baselineFile=../.baseline-profile-deprecations.json&ignoreFile=../web/core/.deprecation-ignore.txt\" phpunit --verbose web/profiles"
+        ]
     },
     "extra": {
         "composer-exit-on-patch-failure": true,

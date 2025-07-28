@@ -1,8 +1,0 @@
-[
-  "Calling the Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch() method with a string event name as the first argument is deprecated in drupal:9.1.0, an Event object will be required instead in drupal:10.0.0. See https://www.drupal.org/node/3154407",
-  "The \"app.root\" service is deprecated in drupal:9.0.0 and is removed from drupal:10.0.0. Use the app.root parameter instead. See https://www.drupal.org/node/3080612",
-  "The \"Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent::getException()\" method is deprecated since Symfony 4.4, use \"getThrowable()\" instead.",
-  "Non-object services are deprecated since Symfony 4.4, please fix the \"app.root\" service which is of type \"string\" right now.",
-  "The \"app.root.factory\" service is deprecated in drupal:9.0.0 and is removed from drupal:10.0.0. Use the app.root parameter instead. See https://www.drupal.org/node/3080612",
-  "The \"Drupal\\Tests\\Listeners\\DrupalListener\" class implements \"PHPUnit\\Framework\\TestListener\" that is deprecated."
-]

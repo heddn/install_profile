@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.basic
     - field.field.node.article.body
     - field.field.node.article.field_image
     - field.field.node.article.field_tags

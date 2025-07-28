@@ -1,8 +1,8 @@
 name: Custom Tailwind theme
 description: Custom Tailwind theme (based upon Tailwind CSS)
-core_version_requirement: ^9
+core_version_requirement: ^10 || ^11
 type: theme
-base theme: stable
+base theme: stable9
 regions:
   header: Header
   primary_menu: 'Primary menu'

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\install_profile\Functional;
 
+use Drupal\Core\Database\StatementInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\dblog\Controller\DbLogController;
 use Drupal\Tests\BrowserTestBase;
@@ -33,15 +34,26 @@ final class InstallProfileTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
+   */
+  protected static $modules = [
+    'default_content',
+    'custom_default_content',
+  ];
+
+  /**
+   * {@inheritdoc}
    *
    * Strict schema validation is moved into assertInstalledConfig().
    */
+  // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
   protected $strictConfigSchema = FALSE;
+  // phpcs:enable
 
   /**
    * Tests installing the site.
    */
   public function testInstall(): void {
+    $this->container->get('module_installer')->uninstall(['custom_default_content', 'default_content']);
     $assert = $this->assertSession();
 
     // Ensure there are no errors on config import.
@@ -51,12 +63,13 @@ final class InstallProfileTest extends BrowserTestBase {
       ->fields('watchdog')
       ->condition('type', 'config_sync')
       ->execute();
+    \assert($query instanceof StatementInterface);
     while ($error = $query->fetchObject()) {
       $messages[] = (string) $dblog_controller->formatMessage($error);
     }
     self::assertSame([], \array_unique($messages), 'The config import during installation proceeded without error');
 
-    $this->drupalGet('');
+    $this->drupalGet('<front>');
     $assert->statusCodeEquals(200);
 
     $this->assertInstalledConfig($this->defaultSkippedConfig());
