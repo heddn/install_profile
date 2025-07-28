@@ -52,7 +52,7 @@ jobs:
           extensions: ${{ env.PHP_EXTENSIONS }}
           key: php-ext-cache-v1
       - name: Cache PHP extensions
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ${{ steps.extcache.outputs.dir }}
           key: ${{ steps.extcache.outputs.key }}
