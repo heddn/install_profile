@@ -75,7 +75,7 @@
         "files": ["load.environment.php"]
     },
     "scripts": {
-        "phpstan": "phpstan analyse --",
+        "phpstan": "phpstan analyse --error-format=table -v --",
         "phpstan-baseline-update": "phpstan analyze web/modules/custom web/themes/custom web/profiles --generate-baseline ./phpstan-baseline.neon",
         "si": [
             "Composer\\Config::disableProcessTimeout",

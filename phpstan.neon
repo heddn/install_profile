@@ -1,8 +1,6 @@
 parameters:
   customRulesetUsed: true
   reportUnmatchedIgnoredErrors: false
-  checkGenericClassInNonGenericObjectType: true
-  checkMissingIterableValueType: true
   checkMissingVarTagTypehint: true
   checkMissingTypehints: true
   ergebnis:
@@ -12,15 +10,8 @@ parameters:
       enabled: false
   # Ignore phpstan-drupal extension's rules.
   ignoreErrors:
-    - '#[a-zA-Z0-9\\_\(\) ]+ return type has no value type specified in iterable type array#'
-    - '#Class "[a-zA-Z0-9\\_]+" is not allowed to extend "[a-zA-Z0-9\\_]+".#'
-    - '#Method [a-zA-Z0-9\\_]+::creat[a-zA-Z]+\(\) has a parameter \$container with a type declaration of [a-zA-Z0-9\\_]+, but containers should not be injected.#'
-    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has a nullable return type declaration.#'
-    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) is not final, but since the containing class is abstract, it should be.#'
-    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with a nullable type declaration.#'
-    - '#Function [a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with a nullable type declaration.#'
-    - '#Function [a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with null as default value.#'
-    - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with null as default value.#'
+    -
+      identifier: ergebnis.noExtends
   drupal:
     entityMapping:
       node:
