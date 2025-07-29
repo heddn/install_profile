@@ -14,7 +14,7 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4",
     "@tailwindcss/forms": "^0.5",
-    "@tailwindcss/line-clamp": "^0.4",
+    "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/typography": "^0.5",
     "autoprefixer": "^10.4.21",
     "browser-sync": "^3.0.4",
@@ -25,10 +25,10 @@
     "postcss-import": "^16",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
-    "watch": "^1"
+    "watch": "^0.13.0"
   },
   "engines": {
-    "node": "~16",
-    "npm": "~8"
+    "node": "~22",
+    "npm": "~10"
   }
 }

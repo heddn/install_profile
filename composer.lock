@@ -2834,30 +2834,41 @@
         },
         {
             "name": "drupal/tailwindcss_utility",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tailwindcss_utility.git",
-                "reference": "2.0.3"
+                "reference": "2.0.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tailwindcss_utility-2.0.3.zip",
-                "reference": "2.0.3",
-                "shasum": "cc32de7cece398338645df0575268244bd37104a"
+                "url": "https://ftp.drupal.org/files/projects/tailwindcss_utility-2.0.4.zip",
+                "reference": "2.0.4",
+                "shasum": "1b68bf027c4c203052309497f7083c993e1ba9d2"
             },
             "require": {
-                "drupal/core": "^10"
+                "drupal/core": "^10 || ^11"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.3",
-                    "datestamp": "1703777046",
+                    "version": "2.0.4",
+                    "datestamp": "1753737343",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "installer-name": "tailwindcss_utility"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\tailwindcss_utility\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Drupal\\Tests\\tailwindcss_utility\\": "tests/"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2866,11 +2877,11 @@
             ],
             "authors": [
                 {
-                    "name": "Fabianx",
+                    "name": "fabianx",
                     "homepage": "https://www.drupal.org/user/693738"
                 },
                 {
-                    "name": "Graber",
+                    "name": "graber",
                     "homepage": "https://www.drupal.org/user/1599440"
                 },
                 {
@@ -2878,7 +2889,7 @@
                     "homepage": "https://www.drupal.org/user/1463982"
                 }
             ],
-            "description": "Tailwind Utilities",
+            "description": "Tailwind Utilities module for Drupal.",
             "homepage": "https://www.drupal.org/project/tailwindcss_utility",
             "support": {
                 "source": "https://git.drupalcode.org/project/tailwindcss_utility"
