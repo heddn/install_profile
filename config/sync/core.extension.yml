@@ -38,7 +38,6 @@ module:
   jquery_ui_touch_punch: 0
   js_cookie: 0
   layout_builder: 0
-  layout_builder_expose_all_field_blocks: 0
   layout_discovery: 0
   link: 0
   media: 0
@@ -55,7 +54,6 @@ module:
   redirect: 0
   redirect_404: 0
   responsive_image: 0
-  search: 0
   shortcut: 0
   sqlite: 0
   system: 0
@@ -65,7 +63,6 @@ module:
   text: 0
   token: 0
   toolbar: 0
-  tour: 0
   update: 0
   user: 0
   views_ui: 0
