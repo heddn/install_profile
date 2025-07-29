@@ -12,6 +12,8 @@ parameters:
   ignoreErrors:
     -
       identifier: ergebnis.noExtends
+    -
+      identifier: ergebnis.noParameterWithNullDefaultValue
   drupal:
     entityMapping:
       node:
