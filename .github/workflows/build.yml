@@ -69,7 +69,7 @@ jobs:
         run: echo "::add-matcher::${{runner.tool_cache}}/php.json"
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{runner.tool_cache}}/phpunit.json"
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Validate composer.json and composer.lock
         run: composer validate
       - name: Set Composer Cache Directory
