@@ -52,7 +52,7 @@ jobs:
           extensions: ${{ env.PHP_EXTENSIONS }}
           key: php-ext-cache-v1
       - name: Cache PHP extensions
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.extcache.outputs.dir }}
           key: ${{ steps.extcache.outputs.key }}
@@ -75,7 +75,7 @@ jobs:
       - name: Set Composer Cache Directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ${{steps.composer-cache.outputs.dir}}
           key: composer-${{hashFiles('**/composer.lock', '**/composer.patches.json')}}
@@ -125,7 +125,7 @@ jobs:
           SIMPLETEST_BASE_URL: 'http://127.0.0.1:8888'
           PHP_CLI_SERVER_WORKERS: 2
       - name: Upload archive of test artifacts
-        uses: actions/upload-artifact@v5.0.0
+        uses: actions/upload-artifact@v6.0.0
         if: always()
         with:
           name: artifacts
