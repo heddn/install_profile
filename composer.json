@@ -28,7 +28,7 @@
         "drupal/jquery_ui_datepicker": "^2.1",
         "drupal/jquery_ui_slider": "^2.1",
         "drupal/jquery_ui_touch_punch": "^1.1",
-        "drupal/js_cookie": "^1.0",
+        "drupal/js_cookie": "^2.0",
         "drupal/pathauto": "^1.11",
         "drupal/redirect": "^1.6",
         "drupal/tailwindcss_utility": "^2",
