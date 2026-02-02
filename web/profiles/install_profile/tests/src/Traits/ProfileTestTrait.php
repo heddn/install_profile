@@ -25,7 +25,6 @@ trait ProfileTestTrait {
     $path_to_db = \array_key_exists('BROWSERTEST_DB_DUMP_PATH', $_ENV) ? $_ENV['BROWSERTEST_DB_DUMP_PATH'] : FALSE;
 
     if ($path_to_db && \strpos($path_to_db, 'COMMIT-HASH') !== FALSE) {
-      // @phpstan-ignore-next-line
       $rev = @\exec('git rev-parse --short HEAD') ?: 'unknown-hash';
       $path_to_db = \str_replace('COMMIT-HASH', $rev, $path_to_db);
     }

@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Error suppression via "@" should not be used\.$#'
+			identifier: ergebnis.noErrorSuppression
+			count: 1
+			path: web/profiles/install_profile/tests/src/Functional/InstallProfileTest.php
+
+		-
+			message: '#^Short ternary operator is not allowed\. Use null coalesce operator if applicable or consider using long ternary\.$#'
+			identifier: ternary.shortNotAllowed
+			count: 1
+			path: web/profiles/install_profile/tests/src/Functional/InstallProfileTest.php
