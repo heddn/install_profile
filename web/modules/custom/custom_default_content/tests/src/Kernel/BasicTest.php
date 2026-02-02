@@ -6,12 +6,12 @@ namespace Drupal\Tests\custom_default_content\Kernel;
 
 use Drupal\node\Entity\Node;
 use Drupal\Tests\node\Kernel\NodeAccessTestBase;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Test description.
- *
- * @group custom_default_content
  */
+#[Group('custom_default_content')]
 final class BasicTest extends NodeAccessTestBase {
 
   /**

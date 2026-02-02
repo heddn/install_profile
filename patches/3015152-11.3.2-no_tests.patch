@@ -1,0 +1,428 @@
+diff --git a/core/modules/layout_builder/config/schema/layout_builder.schema.yml b/core/modules/layout_builder/config/schema/layout_builder.schema.yml
+index 35bf12e6185..51c2585c3e5 100644
+--- a/core/modules/layout_builder/config/schema/layout_builder.schema.yml
++++ b/core/modules/layout_builder/config/schema/layout_builder.schema.yml
+@@ -56,6 +56,11 @@ layout_builder.component:
+     additional:
+       type: ignore
+       label: 'Additional data'
++    third_party_settings:
++      type: sequence
++      label: 'Third party settings'
++      sequence:
++        type: '[%parent.%parent.%type].third_party.[%key]'
+ 
+ inline_block:
+   type: block_settings
+diff --git a/core/modules/layout_builder/src/Entity/LayoutBuilderEntityViewDisplay.php b/core/modules/layout_builder/src/Entity/LayoutBuilderEntityViewDisplay.php
+index 10c8705d8c3..47ec12357fe 100644
+--- a/core/modules/layout_builder/src/Entity/LayoutBuilderEntityViewDisplay.php
++++ b/core/modules/layout_builder/src/Entity/LayoutBuilderEntityViewDisplay.php
+@@ -469,7 +469,7 @@ public function setComponent($name, array $options = []) {
+ 
+       $section = $this->getDefaultSection();
+       $region = $options['region'] ?? $section->getDefaultRegion();
+-      $new_component = (new SectionComponent(\Drupal::service('uuid')->generate(), $region, $configuration));
++      $new_component = new SectionComponent(\Drupal::service('uuid')->generate(), $region, $configuration);
+       $section->appendComponent($new_component);
+     }
+     return $this;
+diff --git a/core/modules/layout_builder/src/Plugin/ConfigAction/AddComponent.php b/core/modules/layout_builder/src/Plugin/ConfigAction/AddComponent.php
+index 672f7b0cc5a..a2b0ed99f63 100644
+--- a/core/modules/layout_builder/src/Plugin/ConfigAction/AddComponent.php
++++ b/core/modules/layout_builder/src/Plugin/ConfigAction/AddComponent.php
+@@ -145,7 +145,7 @@ private function applySingle(SectionListInterface $entity, array $value): void {
+     // default, which will be overridden in insertComponent anyway.
+     // We also need to generate the UUID here, or it could be null.
+     $uuid = $component['uuid'] ?? $this->uuidGenerator->generate();
+-    $component = new SectionComponent($uuid, $region, $component['configuration'], $component['additional'] ?? []);
++    $component = new SectionComponent($uuid, $region, $component['configuration'], $component['additional'] ?? [], $component['third_party_settings'] ?? []);
+     // If the position is higher than the number of components, just put it last
+     // instead of failing.
+     $position = min($position, count($section->getComponentsByRegion($region)));
+diff --git a/core/modules/layout_builder/src/SectionComponent.php b/core/modules/layout_builder/src/SectionComponent.php
+index b0f8ff13e4f..ec842e32394 100644
+--- a/core/modules/layout_builder/src/SectionComponent.php
++++ b/core/modules/layout_builder/src/SectionComponent.php
+@@ -3,6 +3,7 @@
+ namespace Drupal\layout_builder;
+ 
+ use Drupal\Component\Plugin\Exception\PluginException;
++use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
+ use Drupal\Core\Plugin\ContextAwarePluginInterface;
+ use Drupal\layout_builder\Event\SectionComponentBuildRenderArrayEvent;
+ 
+@@ -18,7 +19,7 @@
+  * @see \Drupal\layout_builder\Section
+  * @see \Drupal\layout_builder\SectionStorageInterface
+  */
+-class SectionComponent {
++class SectionComponent implements ThirdPartySettingsInterface {
+ 
+   /**
+    * The UUID of the component.
+@@ -52,9 +53,23 @@ class SectionComponent {
+    * Any additional properties and values.
+    *
+    * @var mixed[]
++   *
++   * @deprecated in drupal:11.4.0 and is removed from drupal:12.0.0.
++   * Additional component properties should be set via ::setThirdPartySetting().
++   *
++   * @see https://www.drupal.org/node/3100177
+    */
+   protected $additional = [];
+ 
++  /**
++   * Third party settings.
++   *
++   * An array of key/value pairs keyed by provider.
++   *
++   * @var mixed[]
++   */
++  protected $thirdPartySettings = [];
++
+   /**
+    * Constructs a new SectionComponent.
+    *
+@@ -65,13 +80,25 @@ class SectionComponent {
+    * @param mixed[] $configuration
+    *   The plugin configuration.
+    * @param mixed[] $additional
+-   *   An additional values.
++   *   (optional) Additional values.
++   * @param array[] $third_party_settings
++   *   (optional) Any third party settings.
++   *
++   * @todo Remove $additional argument in
++   *   https://www.drupal.org/project/drupal/issues/3160644 in drupal:12.0.x.
+    */
+-  public function __construct($uuid, $region, array $configuration = [], array $additional = []) {
++  public function __construct($uuid, $region, array $configuration = [], array $additional = [], array $third_party_settings = []) {
+     $this->uuid = $uuid;
+     $this->region = $region;
+     $this->configuration = $configuration;
++    // @todo Remove below $additional code when the drupal:12.0.x branch is opened.
++    // @see https://www.drupal.org/project/drupal/issues/3160644
++    // @phpstan-ignore-next-line
+     $this->additional = $additional;
++    if ($additional !== []) {
++      @trigger_error('Setting additional properties is deprecated in drupal:11.3.0 and is removed from drupal:12.0.0. Additional component properties should be set via ::setThirdPartySetting(). See https://www.drupal.org/node/3100177', E_USER_DEPRECATED);
++    }
++    $this->thirdPartySettings = $third_party_settings;
+   }
+ 
+   /**
+@@ -99,6 +126,11 @@ public function toRenderArray(array $contexts = [], $in_preview = FALSE) {
+    * @param string $property
+    *   The property to retrieve.
+    *
++   * @deprecated in drupal:11.3.0 and is removed from drupal:12.0.0.
++   * Additional properties should be gotten via ::getThirdPartySetting().
++   *
++   * @see https://www.drupal.org/node/3100177
++   *
+    * @return mixed
+    *   The value for that property, or NULL if the property does not exist.
+    */
+@@ -109,6 +141,7 @@ public function get($property) {
+     else {
+       $value = $this->additional[$property] ?? NULL;
+     }
++    @trigger_error('Getting additional properties is deprecated in drupal:11.3.0 and is removed from drupal:12.0.0. Additional component properties should be gotten via ::getThirdPartySetting(). See https://www.drupal.org/node/3100177', E_USER_DEPRECATED);
+     return $value;
+   }
+ 
+@@ -120,6 +153,11 @@ public function get($property) {
+    * @param mixed $value
+    *   The value to set.
+    *
++   * @deprecated in drupal:11.4.0 and is removed from drupal:12.0.0.
++   * Additional properties should be set via ::setThirdPartySetting().
++   *
++   * @see https://www.drupal.org/node/3100177
++   *
+    * @return $this
+    */
+   public function set($property, $value) {
+@@ -129,6 +167,7 @@ public function set($property, $value) {
+     else {
+       $this->additional[$property] = $value;
+     }
++    @trigger_error('Setting random section component properties is deprecated in drupal:11.3.0 and is removed from drupal:12.0.0. Component properties should be set via dedicated setters. See https://www.drupal.org/node/3100177', E_USER_DEPRECATED);
+     return $this;
+   }
+ 
+@@ -187,7 +226,7 @@ public function setWeight($weight) {
+    * @return mixed[]
+    *   The component plugin configuration.
+    */
+-  protected function getConfiguration() {
++  public function getConfiguration() {
+     return $this->configuration;
+   }
+ 
+@@ -293,7 +332,11 @@ public function toArray() {
+       'region' => $this->getRegion(),
+       'configuration' => $this->getConfiguration(),
+       'weight' => $this->getWeight(),
++      // @todo Remove below key/value when the drupal:12.0.x branch is opened.
++      // @see https://www.drupal.org/project/drupal/issues/3160644
++      // @phpstan-ignore-next-line
+       'additional' => $this->additional,
++      'third_party_settings' => $this->thirdPartySettings,
+     ];
+   }
+ 
+@@ -309,12 +352,70 @@ public function toArray() {
+    *   The section component object.
+    */
+   public static function fromArray(array $component) {
++    // Ensure expected array keys are present.
++    $component += [
++      'uuid' => '',
++      'region' => '',
++      'configuration' => [],
++      // @todo Remove below key/value when the drupal:12.0.x branch is opened.
++      // @see https://www.drupal.org/project/drupal/issues/3160644
++      'additional' => [],
++      'third_party_settings' => [],
++    ];
+     return (new static(
+       $component['uuid'],
+       $component['region'],
+       $component['configuration'],
+-      $component['additional']
++      // @todo Remove below argument when the drupal:12.0.x branch is opened.
++      // @see https://www.drupal.org/project/drupal/issues/3160644
++      $component['additional'],
++      $component['third_party_settings']
+     ))->setWeight($component['weight']);
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public function getThirdPartySetting($provider, $key, $default = NULL) {
++    return $this->thirdPartySettings[$provider][$key] ?? $default;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function getThirdPartySettings($provider) {
++    return $this->thirdPartySettings[$provider] ?? [];
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function setThirdPartySetting($provider, $key, $value) {
++    $this->thirdPartySettings[$provider][$key] = $value;
++    return $this;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function unsetThirdPartySetting($provider, $key) {
++    unset($this->thirdPartySettings[$provider][$key]);
++    // If the third party is no longer storing any information, completely
++    // remove the array holding the settings for this provider.
++    if (empty($this->thirdPartySettings[$provider])) {
++      unset($this->thirdPartySettings[$provider]);
++    }
++    return $this;
++  }
++
++  /**
++   * Gets the list of third parties that store information.
++   *
++   * @return array
++   *   The list of third parties.
++   */
++  public function getThirdPartyProviders() {
++    return array_keys($this->thirdPartySettings);
++  }
++
+ }
+diff --git a/core/profiles/demo_umami/config/install/core.entity_view_display.node.article.full.yml b/core/profiles/demo_umami/config/install/core.entity_view_display.node.article.full.yml
+index 3a21bf3cde2..58a37913aca 100644
+--- a/core/profiles/demo_umami/config/install/core.entity_view_display.node.article.full.yml
++++ b/core/profiles/demo_umami/config/install/core.entity_view_display.node.article.full.yml
+@@ -39,6 +39,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+           02d32417-145b-41a4-8d7a-27e4477b9666:
+             uuid: 02d32417-145b-41a4-8d7a-27e4477b9666
+             region: content
+@@ -56,6 +57,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 1
+             additional: {  }
++            third_party_settings: {  }
+           f73af85e-15fc-4672-8b72-3ed91353e08c:
+             uuid: f73af85e-15fc-4672-8b72-3ed91353e08c
+             region: content
+@@ -71,6 +73,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 2
+             additional: {  }
++            third_party_settings: {  }
+           957850fc-d5ea-4a6f-b3c9-dd2e4811a5c4:
+             uuid: 957850fc-d5ea-4a6f-b3c9-dd2e4811a5c4
+             region: content
+@@ -81,6 +84,7 @@ third_party_settings:
+                 entity: layout_builder.entity
+             weight: 3
+             additional: {  }
++            third_party_settings: {  }
+           937c9738-b63e-409f-897a-c9fc98f6716e:
+             uuid: 937c9738-b63e-409f-897a-c9fc98f6716e
+             region: content
+@@ -91,6 +95,7 @@ third_party_settings:
+                 entity: layout_builder.entity
+             weight: 4
+             additional: {  }
++            third_party_settings: {  }
+         third_party_settings: {  }
+ id: node.article.full
+ targetEntityType: node
+diff --git a/core/profiles/demo_umami/config/install/core.entity_view_display.node.page.full.yml b/core/profiles/demo_umami/config/install/core.entity_view_display.node.page.full.yml
+index 17233e07dd9..42ce28ce2dc 100644
+--- a/core/profiles/demo_umami/config/install/core.entity_view_display.node.page.full.yml
++++ b/core/profiles/demo_umami/config/install/core.entity_view_display.node.page.full.yml
+@@ -36,6 +36,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+           57ad7b26-a88b-439e-a056-40f2de29a943:
+             uuid: 57ad7b26-a88b-439e-a056-40f2de29a943
+             region: content
+@@ -46,6 +47,7 @@ third_party_settings:
+                 entity: layout_builder.entity
+             weight: 1
+             additional: {  }
++            third_party_settings: {  }
+           01b94e28-e38c-4849-98d6-ed77bca30afc:
+             uuid: 01b94e28-e38c-4849-98d6-ed77bca30afc
+             region: content
+@@ -56,6 +58,7 @@ third_party_settings:
+                 entity: layout_builder.entity
+             weight: 2
+             additional: {  }
++            third_party_settings: {  }
+         third_party_settings: {  }
+ id: node.page.full
+ targetEntityType: node
+diff --git a/core/profiles/demo_umami/config/install/core.entity_view_display.node.recipe.full.yml b/core/profiles/demo_umami/config/install/core.entity_view_display.node.recipe.full.yml
+index 568bc71634d..7990914d5f6 100644
+--- a/core/profiles/demo_umami/config/install/core.entity_view_display.node.recipe.full.yml
++++ b/core/profiles/demo_umami/config/install/core.entity_view_display.node.recipe.full.yml
+@@ -51,6 +51,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 3
+             additional: {  }
++            third_party_settings: {  }
+           0eff9e1d-4e73-4748-b910-e5568df1d5aa:
+             uuid: 0eff9e1d-4e73-4748-b910-e5568df1d5aa
+             region: content
+@@ -67,6 +68,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 2
+             additional: {  }
++            third_party_settings: {  }
+           44801518-fe93-421a-bdcb-550493c7925d:
+             uuid: 44801518-fe93-421a-bdcb-550493c7925d
+             region: content
+@@ -82,6 +84,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 4
+             additional: {  }
++            third_party_settings: {  }
+         third_party_settings: {  }
+       -
+         layout_id: layout_oneplusfourgrid_section
+@@ -107,6 +110,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 4
+             additional: {  }
++            third_party_settings: {  }
+           df8bfafc-210c-4d86-9745-e47081ab0fd4:
+             uuid: df8bfafc-210c-4d86-9745-e47081ab0fd4
+             region: fifth
+@@ -122,6 +126,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+           a2d450d0-08ce-4123-bca0-411bfa1da132:
+             uuid: a2d450d0-08ce-4123-bca0-411bfa1da132
+             region: fourth
+@@ -139,6 +144,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+           f91febc6-d924-47a2-8ffd-b71d3b2597c7:
+             uuid: f91febc6-d924-47a2-8ffd-b71d3b2597c7
+             region: third
+@@ -156,6 +162,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+           00488840-db50-4afe-9c30-a123e6707fa9:
+             uuid: 00488840-db50-4afe-9c30-a123e6707fa9
+             region: second
+@@ -173,6 +180,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+           69d8bce1-28ae-4287-a05b-a2166679f867:
+             uuid: 69d8bce1-28ae-4287-a05b-a2166679f867
+             region: first
+@@ -192,6 +200,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+         third_party_settings: {  }
+       -
+         layout_id: layout_twocol_section
+@@ -215,6 +224,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+           f61cae40-5865-4c4c-98fa-14b8234e7b98:
+             uuid: f61cae40-5865-4c4c-98fa-14b8234e7b98
+             region: second
+@@ -230,6 +240,7 @@ third_party_settings:
+                 third_party_settings: {  }
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+         third_party_settings: {  }
+       -
+         layout_id: layout_onecol
+@@ -246,6 +257,7 @@ third_party_settings:
+                 entity: layout_builder.entity
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+         third_party_settings: {  }
+       -
+         layout_id: layout_onecol
+@@ -266,6 +278,7 @@ third_party_settings:
+               items_per_page: null
+             weight: 0
+             additional: {  }
++            third_party_settings: {  }
+         third_party_settings: {  }
+ id: node.recipe.full
+ targetEntityType: node

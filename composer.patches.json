@@ -1,7 +1,8 @@
 {
   "patches": {
     "drupal/core": {
-      "#3015152: Support third party settings for components within a section": "patches/drupal-5053.patch"
+      "#3015152: Support third party settings for components within a section": "patches/3015152-11.3.2-no_tests.patch",
+      "fix: #3564735 Synthetic service (kernel) error during non-interactive install": "https://git.drupalcode.org/project/drupal/-/merge_requests/14169.diff"
     },
     "drupal/default_content": {
       "#3175870: Reproducible order of import": "https://www.drupal.org/files/issues/2020-10-08/3175870.patch",

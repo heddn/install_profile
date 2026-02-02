@@ -11,12 +11,12 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\install_profile\Traits\ConfigInstallTestTrait;
 use Drupal\Tests\install_profile\Traits\ProfileTestTrait;
 use Drupal\Tests\RequirementsPageTrait;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Tests Install Profile installation profile expectations.
- *
- * @group minimal
  */
+#[Group('install_profile')]
 final class InstallProfileTest extends BrowserTestBase {
   use ConfigInstallTestTrait;
   use ProfileTestTrait;
