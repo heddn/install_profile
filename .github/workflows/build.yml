@@ -104,7 +104,7 @@ jobs:
             sleep 1
           done
       - name: Setup Node + Yarn
-        uses: actions/setup-node@v6.2.0
+        uses: actions/setup-node@v6.3.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
@@ -125,7 +125,7 @@ jobs:
           SIMPLETEST_BASE_URL: 'http://127.0.0.1:8888'
           PHP_CLI_SERVER_WORKERS: 2
       - name: Upload archive of test artifacts
-        uses: actions/upload-artifact@v6.0.0
+        uses: actions/upload-artifact@v7.0.0
         if: always()
         with:
           name: artifacts
